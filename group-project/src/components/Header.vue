@@ -1,8 +1,6 @@
 <template>
   <nav class="bg-gray-800 py-4 fixed top-0 w-full z-10">
-    <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center"
-    >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
       <div>
         <a href="#" class="text-white font-bold text-xl">LEVL</a>
       </div>
@@ -21,4 +19,5 @@
 export default {
   name: "Header",
 };
+// Changes
 </script>

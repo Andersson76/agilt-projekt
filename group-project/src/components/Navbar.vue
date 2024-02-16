@@ -42,28 +42,28 @@ const categories = [
   {
     name: 'Adventure',
     href: '#',
-    imageSrc: 'public/category1.jpg',
+    imageSrc: 'category1.jpg',
   },
   {
     name: 'Puzzle',
     href: '#',
-    imageSrc: 'public/category11.jpg',
+    imageSrc: 'category11.jpg',
   },
   {
     name: 'Logic',
     href: '#',
-    imageSrc: 'public/category1111.jpg',
+    imageSrc: 'category1111.jpg',
   },
   {
     name: 'Sport',
     href: '#',
-    imageSrc: 'public/category111.jpg',
+    imageSrc: 'category111.jpg',
   },
   { name: 'Math', href: '#', imageSrc: 'public/calc.jpg' },
   {
     name: 'All Games',
     href: '#',
-    imageSrc: 'public/nvey the concept .png',
+    imageSrc: 'nvey the concept .png',
   },
 ]
 </script>

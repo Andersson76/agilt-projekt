@@ -7,6 +7,9 @@ export default {
       colors: {
         "headerGreen": "#A5CC61",
       },
+      fontFamily: {
+        Jua: ["Jua", "Arial", "Helvetica", "sans-serif"]
+      },
     },
   },
   plugins: [],

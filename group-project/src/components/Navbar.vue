@@ -12,7 +12,7 @@
       <div class="flow-root">
         <div>
           <div
-            class="relative box-content h-56 overflow-x-auto xl:overflow-visible"
+            class="relative box-content h-40 lg:h-56 overflow-x-auto xl:overflow-visible"
           >
             <div
               class="absolute flex space-x-1 sm:px-1 lg:px-1 xl:relative xl:grid xl:grid-cols-6 xl:gap-x-1 xl:space-x-0 xl:px-0"
@@ -21,7 +21,7 @@
                 v-for="category in categories"
                 :key="category.name"
                 :href="category.href"
-                class="relative flex h-56 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"
+                class="relative flex h-40 w-40 lg:h-56 lg:w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"
               >
                 <span aria-hidden="true" class="absolute inset-0">
                   <img

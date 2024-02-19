@@ -1,13 +1,11 @@
 <script setup>
 // import HelloWorld from "./components/HelloWorld.vue";
-import Header from "./components/Header.vue";
-import Navbar from "./components/Navbar.vue";
+// import Header from "./components/Header.vue";
+// import Navbar from "./components/Navbar.vue";
 </script>
 
 <template>
-  <Header />
-  <Navbar />
+  <main>
+    <RouterView />
+  </main>
 </template>
-
-
-<!-- Här är mitt första bidrag :D -->

@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import Home from "./Pages/Home.vue";
-import Achievement from "./Pages/Achievement.vue";
-import Login from "./Pages/Login.vue";
+import Home from './Pages/Home.vue'
+import Achievement from './Pages/Achievement.vue'
+import Login from './Pages/Login.vue'
+import MartinQuiz from './Pages/MartinQuiz.vue'
 import Andersson from "./components/Andersson.vue";
 
 export default createRouter({
@@ -23,6 +24,10 @@ export default createRouter({
     {
       component: Andersson,
       path: "/Andersson",
+    },
+    {
+      component: MartinQuiz,
+      path: '/Martinquiz',
     },
   ],
 });

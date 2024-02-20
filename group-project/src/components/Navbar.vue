@@ -77,7 +77,7 @@ const categories = [
     href: "#",
     imageSrc: "category111.jpg",
   },
-  { name: "Math", href: "#", imageSrc: "calc.jpg" },
+  { name: "Math", href: "./Andersson", imageSrc: "calc.jpg" },
   {
     name: "All Games",
     href: "#",

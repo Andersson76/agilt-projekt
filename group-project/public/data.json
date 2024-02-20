@@ -1,0 +1,35 @@
+{
+"Data": {
+   "User1":{
+
+"ProgressData": {
+    "Puzzle": 3,
+    "Adventure": 5,
+    "Quiz": 2,
+    "Sports": 7
+},
+"UserData": {
+    "name": "John",
+    "username": "johnnyboy",
+    "age": 25,
+    "email": "galen@hotmail.com"
+  }
+},
+"User2":{
+
+  "ProgressData": {
+      "Puzzle": 9,
+      "Adventure": 8,
+      "Quiz": 9,
+      "Sports": 9
+  },
+
+  "UserData": {
+      "name": "Jake",
+      "username": "Jakeyboy",
+      "age": 45,
+      "email": "normal@hotmail.com"
+    }
+  }
+}
+}

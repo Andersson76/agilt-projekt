@@ -1,24 +1,28 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 
-
-import Home from './Pages/Home.vue'
-import Achievement from './Pages/Achievement.vue'
-import Login from './Pages/Login.vue'
+import Home from "./Pages/Home.vue";
+import Achievement from "./Pages/Achievement.vue";
+import Login from "./Pages/Login.vue";
+import Andersson from "./components/Andersson.vue";
 
 export default createRouter({
   history: createWebHistory(),
   routes: [
     {
       component: Home,
-      path: '/',
+      path: "/",
     },
     {
       component: Achievement,
-      path: '/Achievements',
+      path: "/Achievements",
     },
     {
       component: Login,
-      path: '/Login',
+      path: "/Login",
+    },
+    {
+      component: Andersson,
+      path: "/Andersson",
     },
   ],
-})
+});

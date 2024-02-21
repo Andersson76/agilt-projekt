@@ -58,7 +58,7 @@
 const categories = [
   {
     name: "Adventure",
-    href: "#",
+    href: "Adventure",
     imageSrc: "category1.jpg",
   },
   {

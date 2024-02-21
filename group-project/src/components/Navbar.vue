@@ -17,29 +17,28 @@
             <div
               class="absolute flex space-x-1 sm:px-1 lg:px-1 xl:relative xl:grid xl:grid-cols-6 xl:gap-x-1 xl:space-x-0 xl:px-0"
             >
-              <a
-                v-for="category in categories"
-                :key="category.name"
-                :href="category.href"
-                class="relative flex h-40 w-40 lg:h-56 lg:w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"
-              >
-                <span aria-hidden="true" class="absolute inset-0">
-                  <img
-                    :src="category.imageSrc"
-                    alt=""
-                    class="h-full w-full object-cover object-center"
-                  />
-                </span>
-
-                <span
-                  aria-hidden="true"
-                  class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"
+            <RouterLink
+              v-for="category in categories"
+              :key="category.name"
+              :to="`/${category.href}`"
+              class="relative flex h-40 w-40 lg:h-56 lg:w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"
+            >
+              <span aria-hidden="true" class="absolute inset-0">
+                <img
+                  :src="category.imageSrc"
+                  alt=""
+                  class="h-full w-full object-cover object-center"
                 />
-                <span
-                  class="relative mt-auto text-center text-xl font-bold text-black bg-headerGreen rounded-lg"
-                  >{{ category.name }}</span
-                >
-              </a>
+              </span>
+
+              <span
+                aria-hidden="true"
+                class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"
+              />
+              <span
+                class="relative mt-auto text-center text-xl font-bold text-black bg-headerGreen rounded-lg"
+              >{{ category.name }}</span>
+            </RouterLink>
             </div>
           </div>
         </div>
@@ -77,7 +76,7 @@ const categories = [
     href: "#",
     imageSrc: "category111.jpg",
   },
-  { name: "Math", href: "#", imageSrc: "calc.jpg" },
+  { name: "Math", href: "Andersson", imageSrc: "calc.jpg" },
   {
     name: "All Games",
     href: "#",

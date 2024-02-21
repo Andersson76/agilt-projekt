@@ -35,11 +35,11 @@ const config = {
 const game = new Phaser.Game(config);
 
 function preload() {
-  this.load.image("sky", "./assets/RyansGame/sky.png");
-  this.load.image("ground", "./assets/RyansGame/platform.png");
-  this.load.image("star", "./assets/RyansGame/star.png");
-  this.load.image("bomb", "./assets/RyansGame/bomb.png");
-  this.load.spritesheet("dude", "./assets/RyansGame/dude.png", {
+  this.load.image("sky", "/assets/RyansGame/sky.png");
+  this.load.image("ground", "/assets/RyansGame/platform.png");
+  this.load.image("star", "/assets/RyansGame/star.png");
+  this.load.image("bomb", "/assets/RyansGame/bomb.png");
+  this.load.spritesheet("dude", "/assets/RyansGame/dude.png", {
     frameWidth: 32,
     frameHeight: 48,
   });

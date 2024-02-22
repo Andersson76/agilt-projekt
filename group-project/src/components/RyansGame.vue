@@ -46,8 +46,8 @@ function preload() {
   this.load.image("bomb", "bomb.png");
   this.load.spritesheet("dude", "dude.png",
   {
-    frameWidth: 32,
-    frameHeight: 48,
+    frameWidth: 31,
+    frameHeight: 72,
   });
 }
 
@@ -66,7 +66,67 @@ function create() {
 
   player.setBounce(0.1);
   player.setCollideWorldBounds(true);
+// buttons----------------->
+  const buttonL = this.add.text(80, 570, '<', {
+            fontFamily: 'Arial',
+            fontSize: '32px',
+            color: '#ffffff',
+            align: 'center',
+            fixedWidth: 40,
+            fixedHeight:40,
+            backgroundColor: '#2d2d2d'
+        }).setPadding(3).setOrigin(0.5);
 
+        buttonL.setInteractive({ useHandCursor: true });
+
+        buttonL.on('pointerover', () => {
+            buttonL.setBackgroundColor('#8d8d8d');
+        });
+
+        buttonL.on('pointerout', () => {
+            buttonL.setBackgroundColor('#2d2d2d');
+        });
+
+        const buttonR = this.add.text(130, 570, '>', {
+            fontFamily: 'Arial',
+            fontSize: '32px',
+            color: '#ffffff',
+            align: 'center',
+            fixedWidth: 40,
+            fixedHeight:40,
+            backgroundColor: '#2d2d2d'
+        }).setPadding(3).setOrigin(0.5);
+
+        buttonR.setInteractive({ useHandCursor: true });
+
+        buttonR.on('pointerover', () => {
+            buttonR.setBackgroundColor('#8d8d8d');
+        });
+
+        buttonR.on('pointerout', () => {
+            buttonR.setBackgroundColor('#2d2d2d');
+        });
+
+        const buttonJump = this.add.text(680, 570, 'JUMP', {
+            fontFamily: 'Arial',
+            fontSize: '32px',
+            color: '#ffffff',
+            align: 'center',
+            fixedWidth: 100,
+            fixedHeight:40,
+            backgroundColor: '#2d2d2d'
+        }).setPadding(3).setOrigin(0.5);
+
+        buttonJump.setInteractive({ useHandCursor: true });
+
+        buttonJump.on('pointerover', () => {
+            buttonJump.setBackgroundColor('#8d8d8d');
+        });
+
+        buttonJump.on('pointerout', () => {
+            buttonJump.setBackgroundColor('#2d2d2d');
+        });
+// keyboard input --------------->
   this.anims.create({
     key: "left",
     frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
@@ -94,7 +154,7 @@ function create() {
     repeat: 8,
     setXY: { x: 12, y: 0, stepX: 90 },
   });
-
+// stars
   stars.children.iterate(function (child) {
     child.setBounceY(Phaser.Math.FloatBetween(0.1, 0.4));
   });
@@ -106,7 +166,7 @@ function create() {
     fontSize: "32px",
     fill: "#000",
   });
-
+// ------------------------
   this.physics.add.collider(player, platforms);
   this.physics.add.collider(stars, platforms);
   this.physics.add.collider(bombs, platforms);

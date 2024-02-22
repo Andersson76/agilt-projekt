@@ -10,5 +10,5 @@
   <Header />
   <Navbar />
   <ProgressCard />
-  <Footer/>
+  <Footer />
 </template>

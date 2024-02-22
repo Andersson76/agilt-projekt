@@ -11,7 +11,7 @@
     <Header />
     <Navbar />
     <div class="flex justify-center">
-    <img src="/ProductBox.jpg" alt=""/>
-</div>
+    <img src="/ProductBox.jpg" alt="" />
+  </div>
     <Footer />
 </template>

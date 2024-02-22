@@ -8,6 +8,7 @@ import Adventure from './Pages/Adventure.vue'
 import MartinQuiz from './Pages/MartinQuiz.vue'
 import Andersson from "./components/Andersson.vue";
 import ProductBoxPage from './Pages/ProductBoxPage.vue'
+import GameStatsPage from './Pages/GameStatsPage.vue'
 
 export default createRouter({
   history: createWebHistory(),
@@ -39,6 +40,10 @@ export default createRouter({
     {
       component: ProductBoxPage,
       path: '/ProductBox',
+    },
+    {
+      component: GameStatsPage,
+      path: '/StatisticsPage',
     },
   ],
 });

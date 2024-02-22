@@ -7,6 +7,7 @@ import Login from './Pages/Login.vue'
 import Adventure from './Pages/Adventure.vue'
 import MartinQuiz from './Pages/MartinQuiz.vue'
 import Andersson from "./components/Andersson.vue";
+import ProductBoxPage from './Pages/ProductBoxPage.vue'
 
 export default createRouter({
   history: createWebHistory(),
@@ -34,6 +35,10 @@ export default createRouter({
     {
       component: Adventure,
       path: '/Adventure',
+    },
+    {
+      component: ProductBoxPage,
+      path: '/ProductBox',
     },
   ],
 });

@@ -29,7 +29,7 @@
               href="#"
               :class="[
                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                'block px-4 py-2 text-sm',
+                'block px-4 py-2 text-sm'
               ]"
               >Support</a
             >
@@ -39,7 +39,7 @@
               href="#"
               :class="[
                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                'block px-4 py-2 text-sm',
+                'block px-4 py-2 text-sm'
               ]"
               >License</a
             >
@@ -50,11 +50,11 @@
               type="submit"
               :class="[
                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                'block w-full px-4 py-2 text-left text-sm',
+                'block w-full px-4 py-2 text-left text-sm'
               ]"
               @click="toggleLogin"
             >
-              {{ isLoggedIn ? "Sign out" : "Sign in" }}
+              {{ isLoggedIn ? 'Sign out' : 'Sign in' }}
             </button>
           </MenuItem>
           <!-- </form> -->
@@ -65,16 +65,16 @@
 </template>
 
 <script setup>
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
-import { ChevronDownIcon } from "@heroicons/vue/20/solid";
-import { ref, defineEmits } from "vue";
+  import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+  import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+  import { ref, defineEmits } from 'vue'
 
-const isLoggedIn = ref(false);
-const emit = defineEmits(["loginStatusChanged"]);
+  const isLoggedIn = ref(false)
+  const emit = defineEmits(['loginStatusChanged'])
 
-const toggleLogin = () => {
-  isLoggedIn.value = !isLoggedIn.value;
-  // Skicka ett custom event för att meddela förälderkomponenten om inloggningsstatusen
-  emit("loginStatusChanged", isLoggedIn.value);
-};
+  const toggleLogin = () => {
+    isLoggedIn.value = !isLoggedIn.value
+    // Skicka ett custom event för att meddela förälderkomponenten om inloggningsstatusen
+    emit('loginStatusChanged', isLoggedIn.value)
+  }
 </script>

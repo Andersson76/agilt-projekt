@@ -1,6 +1,6 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
-// import HelloWorld from "./components/HelloWorld.vue";
-import Header from "../components/Header.vue";
+  import Header from '../components/Header.vue'
 </script>
 
 <template>

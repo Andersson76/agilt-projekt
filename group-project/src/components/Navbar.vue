@@ -86,7 +86,7 @@
     },
     {
       name: 'ProductBox',
-      href: 'hem.png',
+      href: 'ProductBox',
       imageSrc: 'hem.png'
     }
   ]

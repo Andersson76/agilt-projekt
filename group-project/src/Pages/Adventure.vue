@@ -8,5 +8,7 @@
 <template>
   <Header />
   <Navbar />
+
   <RyansGame />
+
 </template>

@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/one-component-per-file -->
 <template>
   <footer class="bg-footerYellow">
     <div class="mx-auto max-w-7xl px-6 py-8 md:flex md:items-center md:justify-between lg:px-8">

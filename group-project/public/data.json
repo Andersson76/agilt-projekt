@@ -5,8 +5,9 @@
 "ProgressData": {
     "Puzzle": 3,
     "Adventure": 5,
-    "Quiz": 2,
-    "Sports": 7
+    "Quiz": 9,
+    "Sports": 7,
+    "Ninja game": 4
 },
 "UserData": {
     "name": "John",
@@ -18,10 +19,11 @@
 "User2":{
 
   "ProgressData": {
-      "Puzzle": 9,
+      "Puzzle": 4,
       "Adventure": 8,
-      "Quiz": 9,
-      "Sports": 9
+      "Quiz": 3,
+      "Sports": 9,
+      "Ninja game": 10
   },
 
   "UserData": {

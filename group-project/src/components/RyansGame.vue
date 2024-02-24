@@ -7,7 +7,7 @@ import { ref, onBeforeUnmount } from 'vue';
 import Phaser from 'phaser';
 
 let player;
-let stars
+let stars;
 let bombs;
 let platforms;
 let cursors;

@@ -7,30 +7,43 @@ import { ref, onBeforeUnmount } from 'vue';
 import Phaser from 'phaser';
 
 let player;
-let stars;
+let stars
 let bombs;
 let platforms;
 let cursors;
 let score = 0;
-let level = 0;
+let level = 1;
 let gameOver = false;
 let scoreText;
 let levelText;
+let highScoreText;
+let HighestLevelText;
 let isLeftButtonDown = false;
 let isRightButtonDown = false;
 let isJumpButtonDown = false;
+let InstructionText;
+var storedData = JSON.parse(localStorage.getItem('RyansGameData'));
+
+
 
 const config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  autoCenter: true,
+  scale: {
+        mode: Phaser.Scale.FIT,
+        parent: 'phaser-example',
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 800,
+        height: 600
+    },
   physics: {
     default: 'arcade',
     arcade: {
       gravity: { y: 300 },
       debug: false,
     },
+  },
+  input:{
+    activePointers: 2,
   },
   scene: {
     preload: preload,
@@ -55,6 +68,7 @@ function preload() {
 }
 
 function create() {
+  storageCheck()
   const sky = this.add.image(400, 300, 'sky');
 
   platforms = this.physics.add.staticGroup();
@@ -144,7 +158,7 @@ function create() {
 
   this.anims.create({
     key: 'right',
-    frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+    frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 7 }),
     frameRate: 10,
     repeat: -1,
   });
@@ -154,12 +168,25 @@ function create() {
   stars = this.physics.add.group({
     key: 'star',
     repeat: 8,
-    setXY: { x: 12, y: 0, stepX: 90 },
+    setXY: { x: 15, y: 0, stepX: 90 },
   });
 
-  stars.children.iterate(function (child) {
-    child.setBounceY(Phaser.Math.FloatBetween(0.1, 0.4));
+  const sceneContext = this;
+
+stars.children.iterate(function (child) {
+  child.setBounceY(Phaser.Math.FloatBetween(0.1, 0.4));
+
+
+  const numText = sceneContext.add.text(child.x, child.y, Math.floor(Math.random() * (50)+1), {
+    fontSize: '20px',
+    fill: '#ffffff',
+    backgroundColor: 'rgba(208, 17, 196, 0.5)'
   });
+  numText.setOrigin(0.5);
+  numText.setDepth(1);
+
+  child.textObj = numText;
+});
 
   bombs = this.physics.add.group();
 
@@ -168,8 +195,24 @@ function create() {
     fill: '#ffffff',
     backgroundColor: '#2d2d2d',
   });
-  levelText = this.add.text(16, 50, 'level: 0', {
+  levelText = this.add.text(16, 50, 'level: 1', {
     fontSize: '32px',
+    fill: '#ffffff',
+    backgroundColor: '#2d2d2d',
+  });
+
+  highScoreText = this.add.text(525, 16, 'High Score:' + storedData.score, {
+    fontSize: '32px',
+    fill: '#ffffff',
+    backgroundColor: '#2d2d2d',
+  });
+  HighestLevelText = this.add.text(525, 50, 'best level:'+ storedData.level, {
+    fontSize: '32px',
+    fill: '#ffffff',
+    backgroundColor: '#2d2d2d',
+  });
+ InstructionText = this.add.text(200, 16, 'Collect Divisibles of '+ level, {
+    fontSize: '20px',
     fill: '#ffffff',
     backgroundColor: '#2d2d2d',
   });
@@ -185,6 +228,9 @@ function create() {
 }
 
 function update() {
+  stars.children.iterate(function (child) {
+    child.textObj.setPosition(child.x, child.y - 20); // Adjust as needed
+  });
   if (gameOver) {
     return;
   }
@@ -207,16 +253,23 @@ function update() {
 
 function collectStar(player, star) {
   star.disableBody(true, true);
-  score += 10;
-  scoreText.setText('Score: ' + score);
+  star.textObj.setVisible(false);
+  if(star.textObj.text % level === 0){
+    score += 10;
+    scoreText.setText('Score: ' + score);
+  }else{
+    score -= 10;
+    scoreText.setText('Score:'+ score);
+  }
 
   if (stars.countActive(true) === 0) {
     level += 1
     levelText.setText('level: ' + level)
+
     stars.children.iterate(function (child) {
       child.enableBody(true, child.x, 0, true, true);
+      child.textObj.setVisible(true)
     });
-
     const x =
       player.x < 400
         ? Phaser.Math.Between(400, 800)
@@ -236,6 +289,7 @@ function hitBomb(player, bomb) {
   player.setTint(0xff0000);
   player.anims.play('turn');
   gameOver = true;
+  storageCheck()
   score = 0;
   level = 0;
   setTimeout(() => {
@@ -245,6 +299,28 @@ function hitBomb(player, bomb) {
       gameOver = false;
     }, 500);
   }, 500);
+}
+
+function storageCheck() {
+    storedData = JSON.parse(localStorage.getItem('RyansGameData'));
+
+
+    if (!storedData) {
+        storedData = {
+          score: 0,
+          level: 0
+        };
+    }
+
+    if (level > (storedData.level || 0)) {
+        storedData.level = level;
+    }
+
+    if (score > (storedData.score || 0)) {
+        storedData.score = score;
+    }
+
+    localStorage.setItem('RyansGameData', JSON.stringify(storedData));
 }
 
 onBeforeUnmount(() => {

@@ -5,7 +5,7 @@ import Home from './Pages/Home.vue'
 import Achievement from './Pages/Achievement.vue'
 import Login from './Pages/Login.vue'
 import Adventure from './Pages/Adventure.vue'
-import MartinQuiz from './Pages/MartinQuiz.vue'
+import BergsQuiz from './Pages/MartinQuiz.vue'
 import Andersson from "./components/Andersson.vue";
 import ProductBoxPage from './Pages/ProductBoxPage.vue'
 
@@ -29,8 +29,8 @@ export default createRouter({
       path: "/Andersson",
     },
     {
-      component: MartinQuiz,
-      path: '/Martinquiz',
+      component: BergsQuiz,
+      path: '/Bergsquiz',
     },
     {
       component: Adventure,

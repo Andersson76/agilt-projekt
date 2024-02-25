@@ -16,7 +16,7 @@
             class="relative box-content h-40 lg:h-56 overflow-x-auto xl:overflow-visible"
           >
             <div
-              class="absolute flex space-x-1 sm:px-1 lg:px-1 xl:relative xl:grid xl:grid-cols-7 xl:gap-x-1 xl:space-x-0 xl:px-0"
+              class="absolute flex space-x-1 sm:px-1 lg:px-1 xl:relative xl:grid xl:grid-cols-8 xl:gap-x-1 xl:space-x-0 xl:px-0"
             >
               <RouterLink
                 v-for="category in categories"
@@ -87,6 +87,11 @@
     {
       name: 'ProductBox',
       href: 'ProductBox',
+      imageSrc: 'hem.png'
+    },
+    {
+      name: 'BergsQuiz',
+      href: 'BergsQuiz',
       imageSrc: 'hem.png'
     }
   ]

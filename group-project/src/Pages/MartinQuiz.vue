@@ -1,96 +1,137 @@
+<script setup>
+
+import {ref, computed} from 'vue'
+
+const questions = ref([
+  {
+    question: 'How many apples is 2.5 apples?',
+    answer: 1,
+    options: [
+      3,
+      2.5,
+      2
+    ],
+    selected: null
+  },
+  {
+    question: 'What is 3 * 5?',
+    answer: 0,
+    options: [
+      15,
+      35,
+      2
+    ],
+    selected: null
+  },
+  {
+    question: 'What is 5 * 3?',
+    answer: 2,
+    options: [
+      53,
+      10,
+      15
+    ],
+    selected: null
+  },
+])
+
+const quizCompleted = ref(false)
+const currentQuestion = ref(0)
+
+const score = computed(() => {
+  let value = 0
+  questions.value.map(q => {
+    if (q.selected == q.answer) {
+      value++
+    }
+  })
+  return value
+})
+
+const getCurrentQuestion = computed (() => {
+  let question = questions.value[currentQuestion.value]
+  question.index = currentQuestion.value
+  return question
+})
+
+const setAnswer = e => {
+  questions.value[currentQuestion.value].selected = e.target.value
+  e.target.value = null
+}
+
+const nextQuestion = () => {
+  if (currentQuestion.value < questions.value.length - 1) {
+    currentQuestion.value++
+  } else {
+    quizCompleted.value = true
+  }
+}
+
+</script>
+
 <template>
-  <!-- class="correct" -->
-  <div id="content-wrapper">
-    <div class="container">
-      <div id="question-container" class="hide">
-        <div id="question">Question</div>
-        <div id="answer-buttons" class="btn-grid">
-          <button
-            type="button"
-            class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          >
-            Answer 1
-          </button>
-          <button
-            type="button"
-            class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          >
-            Answer 2
-          </button>
-          <button
-            type="button"
-            class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          >
-            Answer 3
-          </button>
-          <button
-            type="button"
-            class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          >
-            Answer 4
-          </button>
-        </div>
+  <main class="app">
+    <h1>Quiz</h1>
+
+    <section class="quiz" v-if="!quizCompleted">
+      <div class="quiz-info">
+        <span class="question"> {{ getCurrentQuestion.question }}</span>
+        <span class="score">Score {{ score }}/{{ questions.length }}</span>
       </div>
-      <div class="controls">
-        <button id="start-btn" class="start-btn btn">Start</button>
-        <button id="next-btn" class="next-btn btn hide">Next</button>
+
+      <div class="options">
+        <label v-for="(option, index) in getCurrentQuestion.options" :key="index" :class="`${
+          getCurrentQuestion.selected == index
+          ? index == getCurrentQuestion.answer
+          ? 'correct'
+          : 'wrong'
+          : ''
+        } ${
+          getCurrentQuestion.selected != null &&
+          index != getCurrentQuestion.selected
+          ? 'disabled'
+          : ''
+        }`">
+          <input
+          type="radio"
+          :name="getCurrentQuestion.index"
+          :value="index"
+          v-model="getCurrentQuestion.selected"
+          :disabled="getCurrentQuestion.selected"
+          @change="setAnswer">
+          <span>{{ option }}</span>
+        </label>
+
       </div>
-    </div>
-  </div>
+      <button @click="nextQuestion" :disabled="!getCurrentQuestion.selected">
+      {{
+        getCurrentQuestion.index == questions.length - 1
+        ? 'Finish'
+        :getCurrentQuestion.selected == null
+        ? 'Select an option'
+        : 'Next question'
+        }}
+      </button>
+    </section>
+
+    <section v-else>
+      <h2>You have finished the quiz!</h2>
+      <p>Your score is {{ score }} / {{ questions.length }}</p>
+    </section>
+  </main>
 </template>
 
-<script></script>
-
 <style>
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-    /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
-  }
 
-  :root {
-    --hue-neutral: 200;
-    --hue-wrong: 0;
-    --hue-correct: 145;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  #content-wrapper {
-    --hue: var(--hue-neutral);
-    width: 100vw;
-    height: 100vh;
+.app {
+  background-color: #271C36;
+  color: #FFF;
+}
 
-    margin: 0;
-    padding: 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: hsl(var(--hue), 100%, 20%);
-  }
-
-  #content-wrapper.correct {
-    --hue: var(--hue-correct);
-  }
-
-  #content-wrapper.wrong {
-    --hue: var(--hue-wrong);
-  }
-
-  .container {
-    width: 800px;
-    max-width: 80%;
-    background-color: white;
-    border-radius: 5px;
-    padding: 12px;
-    box-shadow: 0 0 10px 2px;
-  }
-
-  .btn-grid {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    gap: 10px;
-    margin: 20px 0;
-  }
 </style>

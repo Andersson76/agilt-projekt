@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeUnmount } from 'vue';
+import { ref, onBeforeUnmount, onMounted } from 'vue';
 import Phaser from 'phaser';
 
 let player;
@@ -52,9 +52,21 @@ const config = {
   },
 };
 
-const game = new Phaser.Game(config);
 
-const gameContainer = ref(null);
+
+const game = ref(null);
+
+onMounted(() => {
+  game.value = new Phaser.Game(config);
+  console.log('Game created');
+});
+
+onBeforeUnmount(() => {
+  if (game.value) {
+    game.value.destroy(true);
+    console.log('Game destroyed');
+  }
+});
 
 function preload() {
   this.load.image('sky', 'sky.png');
@@ -323,7 +335,7 @@ function storageCheck() {
     localStorage.setItem('RyansGameData', JSON.stringify(storedData));
 }
 
-onBeforeUnmount(() => {
-  game.destroy(true);
-});
+// onBeforeUnmount(() => {
+//   game.destroy(true);
+// });
 </script>

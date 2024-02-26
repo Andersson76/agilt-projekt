@@ -20,7 +20,7 @@
     to="/StatisticsPage"
     class="flex items-center bg-gray-400/5 max-h-40"
   >
-          <img :src="`Throphylvl${score > 4 ? 2 : 1}.jpg`" alt="Throphy Level" class="max-w-32 p-5" />
+          <img :src="`Trophylvl${score > 4 ? 2 : 1}.jpg`" alt="Trophy Level" class="max-w-32 p-5" />
 
           <div class="p-5">
             <p class="text-2xl font-semibold tracking-tight text-gray-900">

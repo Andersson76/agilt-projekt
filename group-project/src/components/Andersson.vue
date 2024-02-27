@@ -50,6 +50,8 @@
   const score = ref(0)
   const gameOver = ref(false)
   const currentQuestion = ref({})
+  const askedQuestions = ref([])
+  let questionCount = 0
 
   const feedback = computed(() =>
     correctAnswer.value ? 'Correct!' : 'Wrong! Try again.'
@@ -69,16 +71,28 @@
     if (answer === currentQuestion.value.answer) {
       score.value++
       correctAnswer.value = true
+      setTimeout(() => {
+        nextQuestion()
+      }, 1000)
     } else {
       correctAnswer.value = false
     }
-    setTimeout(() => {
-      nextQuestion()
-    }, 1000)
   }
 
   const nextQuestion = () => {
-    const randomIndex = Math.floor(Math.random() * questions.value.length)
+    if (correctAnswer.value === true) {
+      questionCount++
+    }
+    if (questionCount == 10) {
+      gameOver.value = true
+      return
+    }
+
+    let randomIndex = Math.floor(Math.random() * questions.value.length)
+    while (randomIndex === currentQuestionIndex.value) {
+      randomIndex = Math.floor(Math.random() * questions.value.length)
+    }
+    askedQuestions.value.push(randomIndex)
     currentQuestionIndex.value = randomIndex
     currentQuestion.value = questions.value[randomIndex]
     correctAnswer.value = null
@@ -87,6 +101,8 @@
   const restartGame = () => {
     score.value = 0
     gameOver.value = false
+    questionCount = 0
+    askedQuestions.value = []
     nextQuestion()
   }
 

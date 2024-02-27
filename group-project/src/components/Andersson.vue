@@ -40,23 +40,11 @@
 
 <script setup>
   import { ref, computed, onMounted } from 'vue'
+  import axios from 'axios'
   import Header from './Header.vue'
   import Navbar from './Navbar.vue'
 
-  const questions = ref([
-    {
-      question: 'What is 2 + 2?',
-      answer: '4',
-      options: ['3', '4', '5', '6']
-    },
-    {
-      question: 'What is 5 * 3?',
-      answer: '15',
-      options: ['10', '12', '15', '20']
-    }
-    // Add more questions as needed
-  ])
-
+  const questions = ref([])
   const currentQuestionIndex = ref(0)
   const correctAnswer = ref(null)
   const score = ref(0)
@@ -66,6 +54,16 @@
   const feedback = computed(() =>
     correctAnswer.value ? 'Correct!' : 'Wrong! Try again.'
   )
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('questions.json')
+      questions.value = response.data
+      nextQuestion()
+    } catch (error) {
+      console.error('Error fetching questions:', error)
+    }
+  }
 
   const checkAnswer = (answer) => {
     if (answer === currentQuestion.value.answer) {
@@ -80,23 +78,17 @@
   }
 
   const nextQuestion = () => {
-    currentQuestionIndex.value++
-    if (currentQuestionIndex.value === questions.value.length) {
-      gameOver.value = true
-    } else {
-      correctAnswer.value = null
-      currentQuestion.value = questions.value[currentQuestionIndex.value]
-    }
+    const randomIndex = Math.floor(Math.random() * questions.value.length)
+    currentQuestionIndex.value = randomIndex
+    currentQuestion.value = questions.value[randomIndex]
+    correctAnswer.value = null
   }
 
   const restartGame = () => {
-    currentQuestionIndex.value = 0
     score.value = 0
     gameOver.value = false
-    currentQuestion.value = questions.value[currentQuestionIndex.value]
+    nextQuestion()
   }
 
-  onMounted(() => {
-    currentQuestion.value = questions.value[currentQuestionIndex.value]
-  })
+  onMounted(fetchData)
 </script>

@@ -27,7 +27,7 @@
     </div>
     <div v-else class="text-center">
       <h2 class="text-2xl font-semibold">Game Over!</h2>
-      <p class="mt-2">Your score: {{ score }}</p>
+      <p class="mt-2">Your score: {{ score }} / 10</p>
       <button
         @click="restartGame"
         class="mt-4 px-4 py-2 bg-green-500 text-white rounded"
@@ -54,7 +54,7 @@
   let questionCount = 0
 
   const feedback = computed(() =>
-    correctAnswer.value ? 'Correct!' : 'Wrong! Try again.'
+    correctAnswer.value ? 'Correct!' : 'Wrong! Try next question.'
   )
 
   const fetchData = async () => {
@@ -71,23 +71,20 @@
     if (answer === currentQuestion.value.answer) {
       score.value++
       correctAnswer.value = true
-      setTimeout(() => {
-        nextQuestion()
-      }, 1000)
     } else {
       correctAnswer.value = false
     }
-  }
-
-  const nextQuestion = () => {
-    if (correctAnswer.value === true) {
-      questionCount++
-    }
-    if (questionCount == 10) {
+    questionCount++
+    if (questionCount >= 10) {
       gameOver.value = true
       return
     }
+    setTimeout(() => {
+      nextQuestion()
+    }, 1000)
+  }
 
+  const nextQuestion = () => {
     let randomIndex = Math.floor(Math.random() * questions.value.length)
     while (randomIndex === currentQuestionIndex.value) {
       randomIndex = Math.floor(Math.random() * questions.value.length)

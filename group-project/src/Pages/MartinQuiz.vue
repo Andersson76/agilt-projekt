@@ -39,7 +39,10 @@ let quizCompleted = ref(false)
 const currentQuestion = ref(0)
 
 //Function to collect score
+/* This function will run and check for changes each time user moves to next question
+and will then collect new possible score data */
 const score = computed(() => {
+  //It sets value to 0 each time it runs again and then just recounts everything
   let value = 0
   questions.value.map(q => {
     if (q.selected == q.answer) {
@@ -56,9 +59,10 @@ const getCurrentQuestion = computed (() => {
   return question
 })
 
+//Set answer to corresponding event target value
 const setAnswer = e => {
-  //Set answer to corresponding event target value
   questions.value[currentQuestion.value].selected = e.target.value
+  //Reset value
   e.target.value = null
 }
 
@@ -86,6 +90,30 @@ function resetQuiz() {
   return
 }
 
+/* Function that evaluates if the option is correct or wrong and then hands the
+correct class accordingly */
+function correctOrWrong(selectedIndex, currentIndex, correctIndex) {
+    if (selectedIndex == currentIndex) {
+        if (currentIndex == correctIndex) {
+            return 'correct'
+        } else {
+            return 'wrong'
+        }
+    } else {
+        return ''
+    }
+}
+
+/* Function that looks at all none chosen options and disables them as soon as
+an option is selected */
+function disableOptions(selectedIndex, currentIndex) {
+    if (selectedIndex != null && currentIndex != selectedIndex) {
+        return 'disabled'
+    } else {
+        return ''
+    }
+}
+
 </script>
 
 <template>
@@ -100,19 +128,19 @@ function resetQuiz() {
 
       <div class="options">
         <!-- Loop trough questions and assign the value of options keys to the "choices" -->
+        <!-- This for loop goes trough the options in each question and sets the values
+        for each label accordingly. It also binds the index value to a "special" attribute :key
+        to prevent rendering issues. This is to let Vue keep track of elements when rendering lists.
+        -->
         <label
-          v-for="(option, index) in getCurrentQuestion.options" :key="index" :class="`option ${
-          getCurrentQuestion.selected == index
-          ? index == getCurrentQuestion.answer
-          ? 'correct'
-          : 'wrong'
-          : ''
-        } ${
-          getCurrentQuestion.selected != null &&
-          index != getCurrentQuestion.selected
-          ? 'disabled'
-          : ''
-        }`">
+          v-for="(option, index) in getCurrentQuestion.options" :key="index"
+          :class="`option
+          ${correctOrWrong(getCurrentQuestion.selected, index, getCurrentQuestion.answer)}
+          ${disableOptions(getCurrentQuestion.selected, index)}`">
+        <!-- Here we use v-model to check if user has selected an answer, if that
+        returns true we disable the other inputs -->
+        <!-- We also use @change event to set our answer. So as soon as there is
+        a change we run our setAnswer function -->
           <input
           type="radio"
           :name="getCurrentQuestion.index"
@@ -124,11 +152,15 @@ function resetQuiz() {
         </label>
 
       </div>
+      <!-- Next question button that is disabled as long as there is currently no answer selected -->
+      <!-- We also change the button text to "Finish" if user is at last question, if not we
+      use the text "Select an option", and as soon as the user selects an option
+      we use the text "Next question" as long as the user is not at the final question -->
       <button @click="nextQuestion" :disabled="!getCurrentQuestion.selected" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
       {{
         getCurrentQuestion.index == questions.length - 1
         ? 'Finish'
-        :getCurrentQuestion.selected == null
+        : getCurrentQuestion.selected == null
         ? 'Select an option'
         : 'Next question'
         }}

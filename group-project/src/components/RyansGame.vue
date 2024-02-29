@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeUnmount, onMounted } from 'vue';
+import { ref, onBeforeUnmount, onMounted, onUnmounted } from 'vue';
 import Phaser from 'phaser';
 
 let player;
@@ -345,8 +345,8 @@ function collectStar(player, star) {
 
 function nextLevel() {
   level += 1;
-  levelText.setText('level: ' + level);
-  InstructionText.setText('Collect Divisibles of ' + level);
+  levelText.setText('level: ' + level)
+  InstructionText.setText('Collect Divisibles of ' + level)
 
   // Respawn stars and bombs
   stars.children.iterate(function (child) {
@@ -384,22 +384,30 @@ function hitBomb(player, bomb) {
 
 function storageCheck() {
   storedData = JSON.parse(localStorage.getItem('RyansGameData'));
+  let gameStats = JSON.parse(localStorage.getItem('gameStats'));
 
   if (!storedData) {
     storedData = {
       score: 0,
       level: 0
-    };
+    }
   }
 
   if (level > (storedData.level || 0)) {
-    storedData.level = level;
+    storedData.level = level
+    gameStats.User1.ProgressData.RyansGame.level = level
   }
 
   if (score > (storedData.score || 0)) {
-    storedData.score = score;
+    storedData.score = score
+    gameStats.User1.ProgressData.RyansGame.score = score
   }
 
+
+  localStorage.setItem('gameStats', JSON.stringify(gameStats));
+  console.log(gameStats.User1);
+
   localStorage.setItem('RyansGameData', JSON.stringify(storedData));
+
 }
 </script>

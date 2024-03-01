@@ -2,7 +2,7 @@
   <div>
     <div ref="game" />
   </div>
-  <div class="justify-center flex md:flex-grow text-3xl">
+  <div class="justify-center flex md:flex-grow text-5xl">
     <span class="justify-center flex"><img src="/leftRight.png" alt="left right arrow">Move</span>
     <span class="justify-center flex"><img src="/up.png" alt="up arrow">Jump</span>
     <span class="justify-center flex"><img src="/space.png" alt="spacebar">Shoot</span>
@@ -33,6 +33,7 @@ let isShootButtonDown = false;
 let InstructionText;
 let storedData = JSON.parse(localStorage.getItem('RyansGameData'));
 let direction = 'turn';
+let lastDirection = 'right';
 
 // Phaser configuration
 const config = {
@@ -106,23 +107,25 @@ function create() {
   platforms = this.physics.add.staticGroup();
 
   // Create ground platforms
-  platforms.create(400, 605, 'ground').setScale(1).refreshBody();
-  platforms.create(600,400, 'ground').setScale(0.22).refreshBody();
-  platforms.create(130, 260, 'ground').setScale(0.15).refreshBody();
-  platforms.create(710, 220, 'ground').setScale(0.22).refreshBody();
+  platforms.create(400, 582, 'ground').setScale(1).refreshBody();//floor
+  platforms.create(630,405, 'ground').setScale(0.30).refreshBody();//bottom right
+  platforms.create(130, 260, 'ground').setScale(0.15).refreshBody();//left
+  platforms.create(710, 225, 'ground').setScale(0.22).refreshBody();//top right
 
   player = this.physics.add.sprite(100, 450, 'dude');
   player.setBounce(0.1);
   player.setCollideWorldBounds(true);
 
   // Create on-screen buttons for controls
-  const buttonL = this.add.sprite(80, 570, 'buttonL').setInteractive();
-  const buttonR = this.add.sprite(130, 570, 'buttonR').setInteractive();
-  const buttonJump = this.add.sprite(700, 570, 'buttonJump').setInteractive();
-  const buttonShoot = this.add.sprite(580, 570, 'Shoot').setInteractive();
+  const buttonL = this.add.sprite(50, 575, 'buttonL').setInteractive();
+  const buttonR = this.add.sprite(140, 575, 'buttonR').setInteractive();
+  const buttonJump = this.add.sprite(740, 575, 'buttonJump').setInteractive();
+  const buttonShoot = this.add.sprite(620, 575, 'Shoot').setInteractive();
 
-  buttonL.setOrigin(0.5);
-  buttonR.setOrigin(0.5);
+  buttonL.setOrigin(1,0.5);
+  buttonL.input.hitArea.width *= 2;
+  buttonR.setOrigin(1,0.5);
+  buttonR.input.hitArea.width *= 2;
   buttonJump.setOrigin(1.5,0.5);
   buttonJump.input.hitArea.width *= 3;
   buttonShoot.setOrigin(1.75,0.5);
@@ -132,38 +135,38 @@ function create() {
   this.add.text(buttonL.x, buttonL.y, '<', {
     fontFamily: 'Arial',
     fontSize: '32px',
-    color: '#ffffff',
+    color: '#000000',
     align: 'center',
-    fixedWidth: 40,
+    fixedWidth: 80,
     fixedHeight: 40,
-    backgroundColor: '#2d2d2d'
+    backgroundColor: '#A5CC61'
   }).setPadding(3).setOrigin(0.5).setDepth(1);
   this.add.text(buttonR.x, buttonR.y, '>', {
     fontFamily: 'Arial',
     fontSize: '32px',
-    color: '#ffffff',
+    color: '#000000',
     align: 'center',
-    fixedWidth: 40,
+    fixedWidth: 80,
     fixedHeight: 40,
-    backgroundColor: '#2d2d2d'
+    backgroundColor: '#A5CC61'
   }).setPadding(3).setOrigin(0.5).setDepth(1);
   this.add.text(buttonJump.x, buttonJump.y, 'JUMP', {
     fontFamily: 'Arial',
     fontSize: '32px',
-    color: '#ffffff',
+    color: '#000000',
     align: 'center',
     fixedWidth: 100,
     fixedHeight: 40,
-    backgroundColor: '#2d2d2d'
+    backgroundColor: '#A5CC61'
   }).setPadding(3).setOrigin(0.5).setDepth(1);
   this.add.text(buttonShoot.x, buttonShoot.y, 'SHOOT', {
     fontFamily: 'Arial',
     fontSize: '32px',
-    color: '#ffffff',
+    color: '#000000',
     align: 'center',
     fixedWidth: 120,
     fixedHeight: 40,
-    backgroundColor: '#2d2d2d'
+    backgroundColor: '#A5CC61'
   }).setPadding(3).setOrigin(0.5).setDepth(1);
 
   // Event listeners for buttons
@@ -253,30 +256,39 @@ function create() {
   bombs = this.physics.add.group();
 
   // Text boxes
-  scoreText = this.add.text(16, 16, 'Score:0', {
-    fontSize: '32px',
-    fill: '#ffffff',
-    backgroundColor: '#2d2d2d',
+  scoreText = this.add.text(10, 10, 'Score:0', {
+    fontSize: '26px',
+    fill: '#000000',
+    backgroundColor: '#A5CC61',
+    padding:2,
   });
-  levelText = this.add.text(16, 50, 'Level:1', {
-    fontSize: '32px',
-    fill: '#ffffff',
-    backgroundColor: '#2d2d2d',
+  levelText = this.add.text(10, 40, 'Level:1', {
+    fontSize: '26px',
+    fill: '#000000',
+    backgroundColor: '#A5CC61',
+    padding:2,
   });
-  highScoreText = this.add.text(525, 16, 'High Score:' + (storedData?.score || 0), {
-    fontSize: '32px',
-    fill: '#ffffff',
-    backgroundColor: '#2d2d2d',
+  highScoreText = this.add.text(555, 10, 'High Score:' + (storedData?.score || 0), {
+    fontSize: '26px',
+    fill: '#000000',
+    backgroundColor: '#A5CC61',
+    fixedWidth: 230,
+    padding:2,
   });
-  HighestLevelText = this.add.text(525, 50, 'Best Level:' + (storedData?.level || 0), {
-    fontSize: '32px',
-    fill: '#ffffff',
-    backgroundColor: '#2d2d2d',
+  HighestLevelText = this.add.text(555, 40, 'Best Level:' + (storedData?.level || 0), {
+    fontSize: '26px',
+    fill: '#000000',
+    backgroundColor: '#A5CC61',
+    fixedWidth: 230,
+    padding:2,
   });
-  InstructionText = this.add.text(200, 16, 'Collect Divisibles of ' + level, {
+  InstructionText = this.add.text(250, 10, 'Collect Divisibles of ' + level, {
     fontSize: '20px',
-    fill: '#ffffff',
-    backgroundColor: '#2d2d2d',
+    fill: '#000000',
+    backgroundColor: '#A5CC61',
+    fixedWidth: 285,
+    padding:2,
+    borderRadius: '100px'
   });
 
   // Collisions
@@ -303,9 +315,11 @@ function update() {
   if ((cursors.left.isDown || isLeftButtonDown) && !(cursors.right.isDown || isRightButtonDown)) {
     player.setVelocityX(-160);
     direction = 'left';
+    lastDirection = 'left';
   } else if ((cursors.right.isDown || isRightButtonDown) && !(cursors.left.isDown || isLeftButtonDown)) {
     player.setVelocityX(160);
     direction = 'right';
+    lastDirection = 'right';
   } else {
     player.setVelocityX(0);
     direction = 'turn';
@@ -337,7 +351,7 @@ function lazerFired(scene) {
   const y = player.y;
   const lazer = scene.physics.add.sprite(x, y, 'lazer');
   lazer.setVelocityY(0);
-  const velocityX = direction === 'right' ? 500 : -500;
+  const velocityX = lastDirection === 'right' ? 500 : -500;
   lazer.setVelocityX(velocityX);
   lazer.setDepth(1);
   lazer.setScale(0.5);

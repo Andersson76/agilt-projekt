@@ -1,5 +1,5 @@
 <!-- eslint-disable vue/multi-word-component-names -->
-<!-- MathQuiz -->
+<!-- MartinAGame -->
 
 <template>
   <Header />
@@ -36,6 +36,7 @@
       </button>
     </div>
   </div>
+  <Footer class="fixed h-20" />
 </template>
 
 <script setup>
@@ -43,11 +44,12 @@
   import axios from 'axios'
   import Header from './Header.vue'
   import Navbar from './Navbar.vue'
+  import Footer from './Footer.vue'
 
   const questions = ref([])
   const currentQuestionIndex = ref(0)
   const correctAnswer = ref(null)
-  const score = ref(0)
+  const score = ref(parseInt(localStorage.getItem('MartinAGameScore')) || 0)
   const gameOver = ref(false)
   const currentQuestion = ref({})
   const askedQuestions = ref([])
@@ -71,6 +73,7 @@
     if (answer === currentQuestion.value.answer) {
       score.value++
       correctAnswer.value = true
+      saveScoreToLocalStorage()
     } else {
       correctAnswer.value = false
     }
@@ -95,11 +98,26 @@
     correctAnswer.value = null
   }
 
+  const saveScoreToLocalStorage = () => {
+    const gameStats = JSON.parse(localStorage.getItem('gameStats')) || {}
+    const playerName = 'User1'
+    if (!gameStats[playerName]) {
+      gameStats[playerName] = { ProgressData: {} }
+    }
+    if (!gameStats[playerName].ProgressData['MartinAGame']) {
+      gameStats[playerName].ProgressData['MartinAGame'] = { level: 0, score: 0 }
+    }
+    gameStats[playerName].ProgressData['MartinAGame'].score = score.value
+    localStorage.setItem('gameStats', JSON.stringify(gameStats))
+    console.log(saveScoreToLocalStorage)
+  }
+
   const restartGame = () => {
-    score.value = 0
+    //score.value = 0
     gameOver.value = false
     questionCount = 0
     askedQuestions.value = []
+    saveScoreToLocalStorage()
     nextQuestion()
   }
 

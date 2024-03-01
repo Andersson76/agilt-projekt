@@ -4,12 +4,12 @@
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden" />
-        <div class="flex flex-1 items-center sm:items-stretch sm:justify-start">
-          <router-link to="./">
-          <div class="flex flex-shrink-0 items-center">
-            <img class="h-8 w-auto" src="/LVL.png" alt="Your Company" />
-          </div>
-            <div class="sm:ml-3 ml-2 mt-1">
+        <div class="flex items-center">
+          <router-link to="./" class="flex items-center">
+            <div class="flex-shrink-0">
+              <img class="h-8 w-auto" src="/LVL.png" alt="Your Company" />
+            </div>
+            <div class="sm:ml-3 ml-2 mt-1 sm:block">
               <h1 class="font-Jua text-3xl">LEVL</h1>
             </div>
           </router-link>

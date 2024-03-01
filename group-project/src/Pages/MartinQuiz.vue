@@ -1,6 +1,8 @@
 <script setup>
 
 import {ref, computed} from 'vue'
+import Header from '../components/Header.vue'
+import Navbar from '../components/Navbar.vue'
 
 const questions = ref([
   {
@@ -41,15 +43,17 @@ const currentQuestion = ref(0)
 //Function to collect score
 /* This function will run and check for changes each time user moves to next question
 and will then collect new possible score data */
+const count = ref(0)
 const score = computed(() => {
   //It sets value to 0 each time it runs again and then just recounts everything
-  let value = 0
+  count.value = 0
   questions.value.map(q => {
     if (q.selected == q.answer) {
-      value++
+      count.value = count.value + 1
+      localStorage.setItem('quiz-score', count.value)
     }
   })
-  return value
+  return count.value
 })
 
 //Function to update to new question continuously
@@ -78,22 +82,20 @@ const nextQuestion = () => {
 
 //Reset quiz by resetting values
 function resetQuiz() {
-
   questions.value.forEach(question => {
     question.selected = null
   })
 
   currentQuestion.value = 0
-
   quizCompleted.value = false
 
   return
 }
 
 /* Function that evaluates if the option is correct or wrong and then hands the
-correct class accordingly */
+correct class for the element */
 function correctOrWrong(selectedIndex, currentIndex, correctIndex) {
-    if (selectedIndex == currentIndex) {
+  if (selectedIndex == currentIndex) {
         if (currentIndex == correctIndex) {
             return 'correct'
         } else {
@@ -117,6 +119,8 @@ function disableOptions(selectedIndex, currentIndex) {
 </script>
 
 <template>
+  <!-- <Header />
+  <Navbar /> -->
   <main class="app">
     <h1 class="header">Quiz</h1>
     <!-- Only render quiz if quiz isnt already completed -->

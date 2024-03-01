@@ -7,10 +7,10 @@
         <div class="flex flex-1 items-center sm:items-stretch sm:justify-start">
           <router-link to="./">
           <div class="flex flex-shrink-0 items-center">
-              <img class="h-8 w-auto" src="/LVL.png" alt="Your Company" />
-              <div class="hidden sm:ml-6 sm:block">
-                <h1 class="font-Jua text-3xl">LEVL</h1>
-              </div>
+            <img class="h-8 w-auto" src="/LVL.png" alt="Your Company" />
+          </div>
+            <div class="sm:ml-3 ml-2 mt-1">
+              <h1 class="font-Jua text-3xl">LEVL</h1>
             </div>
           </router-link>
         </div>

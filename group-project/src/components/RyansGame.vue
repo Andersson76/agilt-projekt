@@ -2,11 +2,13 @@
   <div>
     <div ref="game" />
   </div>
-  <div class="justify-center flex md:flex-grow text-5xl">
+  <div class="hidden lg:block">
+  <div class="justify-center flex md:flex-grow text-5xl ">
     <span class="justify-center flex"><img src="/leftRight.png" alt="left right arrow">Move</span>
     <span class="justify-center flex"><img src="/up.png" alt="up arrow">Jump</span>
     <span class="justify-center flex"><img src="/space.png" alt="spacebar">Shoot</span>
   </div>
+</div>
 </template>
 
 <script setup>
@@ -41,7 +43,7 @@ const config = {
   scale: {
     mode: Phaser.Scale.FIT,
     parent: 'phaser-example',
-    autoCenter: Phaser.Scale.CENTER_BOTH,
+    autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
     width: 800,
     height: 600
   },

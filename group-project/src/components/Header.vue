@@ -5,12 +5,14 @@
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden" />
         <div class="flex flex-1 items-center sm:items-stretch sm:justify-start">
+          <router-link to="./">
           <div class="flex flex-shrink-0 items-center">
             <img class="h-8 w-auto" src="/LVL.png" alt="Your Company" />
           </div>
-          <div class="sm:ml-3 ml-2 mt-1">
-            <h1 class="font-Jua text-3xl">LEVL</h1>
-          </div>
+            <div class="sm:ml-3 ml-2 mt-1">
+              <h1 class="font-Jua text-3xl">LEVL</h1>
+            </div>
+          </router-link>
         </div>
         <div
           class="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"

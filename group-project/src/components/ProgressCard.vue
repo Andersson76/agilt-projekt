@@ -1,16 +1,13 @@
 <script setup>
 import {
   ref,
-  // reactive,
-  // computed,
-  // onMounted
+
 } from 'vue'
 import { RouterLink } from 'vue-router'
 
 let gameStats
 
-// let gameStats = JSON.parse(localStorage.getItem('gameStats'))
-// console.log(gameStats)
+
 const player = ref("User1")
 
 if (!JSON.parse(localStorage.getItem('gameStats'))) {
@@ -19,7 +16,8 @@ gameStats = {
     ProgressData: {
       "RyansGame": {
         level: 0,
-        score: 0
+        score: [0, 0],
+        Maxscore: 500
       },
       "MartinBGame": {
         level: 0,
@@ -72,10 +70,6 @@ localStorage.setItem('gameStats', JSON.stringify(gameStats))
 
   }
 
-
-
-// let gameStats = JSON.parse(localStorage.getItem('gameStats'))
-
 function importLocalStorage(stats) {
     for (let player in stats) {
       for (let game in stats[player].ProgressData) {
@@ -86,21 +80,9 @@ function importLocalStorage(stats) {
     console.log(stats)
 }
 
-
-// Function to set the player and update current player progress data
 function setPlayer(playerName) {
   player.value = playerName
 }
-
-// function currentPlayerProgressData() {
-// if (!gameStats[player.value]) {
-//   console.log('No data found here, no serri')
-//   return
-// }
-// else {
-//   return computed(() => gameStats[player.value].ProgressData)
-//   }
-// }
 
 </script>
 
@@ -130,8 +112,11 @@ function setPlayer(playerName) {
               <p class="text-2xl font-semibold tracking-tight text-gray-900">
                 {{ game }}
               </p>
-              <p v-if="details" class="text-3xl font-semibold leading-6 text-gray-600">
-                Score: {{ details.score }}, Level: {{ details.level }}
+              <p v-if="details" class="text-xl font-semibold leading-6">
+                Score: {{ details.score[0] }} / {{ details.Maxscore }}
+              </p>
+              <p v-if="details" class="text-xl font-semibold leading-6">
+                Level: {{ details.level }}
               </p>
             </div>
           </RouterLink>

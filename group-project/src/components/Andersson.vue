@@ -100,7 +100,7 @@
 
   const saveScoreToLocalStorage = () => {
     const gameStats = JSON.parse(localStorage.getItem('gameStats')) || {}
-    const playerName = 'User2'
+    const playerName = 'User1'
     if (!gameStats[playerName]) {
       gameStats[playerName] = { ProgressData: {} }
     }

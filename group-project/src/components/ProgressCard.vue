@@ -1,6 +1,6 @@
 <script setup>
   import {
-    ref,
+    ref
     // reactive,
     // computed,
     // onMounted
@@ -9,22 +9,37 @@
 
   let gameStats
 
-const player = ref("User1")
+  const player = ref('User1')
 
-if (!JSON.parse(localStorage.getItem('gameStats'))) {
-gameStats = {
-  User1: {
-    ProgressData: {
-      "RyansGame": {
-        level: 0,
-        score: [0, 0],
-        Maxscore: 500
+  if (!JSON.parse(localStorage.getItem('gameStats'))) {
+    gameStats = {
+      User1: {
+        ProgressData: {
+          RyansGame: {
+            level: 0,
+            score: [0, 0],
+            Maxscore: 500
+          },
+          MartinBGame: {
+            level: 0,
+            score: 0
+          },
+          MartinAGame: {
+            level: 0,
+            score: 0
+          },
+          MustafsGame: {
+            level: 0,
+            score: 0
+          }
+        }
       },
       User2: {
         ProgressData: {
           RyansGame: {
             level: 0,
-            score: 0
+            score: [0, 0],
+            Maxscore: 500
           },
           MartinBGame: {
             level: 0,
@@ -53,7 +68,7 @@ gameStats = {
     }
   }
 
-function importLocalStorage(stats) {
+  function importLocalStorage(stats) {
     for (let player in stats) {
       for (let game in stats[player].ProgressData) {
         console.log(game)
@@ -61,11 +76,11 @@ function importLocalStorage(stats) {
       }
     }
     console.log(stats)
-}
+  }
 
-function setPlayer(playerName) {
-  player.value = playerName
-}
+  function setPlayer(playerName) {
+    player.value = playerName
+  }
 </script>
 
 <template>

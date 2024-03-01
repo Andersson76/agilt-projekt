@@ -1,38 +1,37 @@
 <script setup>
 import {
   ref,
-  reactive,
-  computed,
-  onMounted
+  // reactive,
+  // computed,
+  // onMounted
 } from 'vue'
 import { RouterLink } from 'vue-router'
 
-// Ref for reactive current player
+let gameStats
+
+// let gameStats = JSON.parse(localStorage.getItem('gameStats'))
+// console.log(gameStats)
 const player = ref("User1")
-// const gameStats = reactive({})
 
-onMounted(importLocalStorage)
-
-
-
-const gameStats = reactive({
+if (!JSON.parse(localStorage.getItem('gameStats'))) {
+gameStats = {
   User1: {
     ProgressData: {
       "RyansGame": {
-        level: 1,
-        score: 3
+        level: 0,
+        score: 0
       },
       "MartinBGame": {
-        level: 1,
-        score: 3
+        level: 0,
+        score: 0
       },
       "MartinAGame": {
-        level: 1,
-        score: 3
+        level: 0,
+        score: 0
       },
       "MustafsGame": {
-        level: 1,
-        score: 3
+        level: 0,
+        score: 0
 
       }
     }
@@ -40,39 +39,51 @@ const gameStats = reactive({
   User2: {
     ProgressData: {
       "RyansGame": {
-        level: 1,
-        score: 3
-
+        level: 0,
+        score: 0
       },
       "MartinBGame": {
-        level: 1,
-        score: 3
-
+        level: 0,
+        score: 0
       },
       "MartinAGame": {
-        level: 1,
-        score: 3
-
+        level: 0,
+        score: 0
       },
       "MustafsGame": {
-        level: 1,
-        score: 3
-
+        level: 0,
+        score: 0
       }
     }
   },
-})
-
-// localStorage.setItem('gameStats', JSON.stringify(gameStats))
-
-function importLocalStorage() {
-  let currentStats = JSON.parse(localStorage.getItem('gameStats'))
-  if (!currentStats) {
-    console.log('No data found in local storage')
+}
+console.log('No data found, creating new data')
+localStorage.setItem('gameStats', JSON.stringify(gameStats))
   }
   else {
-    localStorage.setItem("gameStats", JSON.stringify(currentStats))
-}
+    try {
+      gameStats = JSON.parse(localStorage.getItem('gameStats'))
+      importLocalStorage(gameStats)
+      console.log('Data found, importing data')
+    }
+    catch (e) {
+      console.log('Error importing data')
+    }
+
+  }
+
+
+
+// let gameStats = JSON.parse(localStorage.getItem('gameStats'))
+
+function importLocalStorage(stats) {
+    for (let player in stats) {
+      for (let game in stats[player].ProgressData) {
+        console.log(game)
+        console.log(stats[player].ProgressData[game])
+      }
+    }
+    console.log(stats)
 }
 
 
@@ -81,15 +92,15 @@ function setPlayer(playerName) {
   player.value = playerName
 }
 
-function currentPlayerProgressData() {
-if (!gameStats[player.value]) {
-  console.log('No data found for this player')
-  return
-}
-else {
-  return computed(() => gameStats[player.value].ProgressData)
-}
-}
+// function currentPlayerProgressData() {
+// if (!gameStats[player.value]) {
+//   console.log('No data found here, no serri')
+//   return
+// }
+// else {
+//   return computed(() => gameStats[player.value].ProgressData)
+//   }
+// }
 
 </script>
 
@@ -105,21 +116,21 @@ else {
     <div class="max-w-7xl px-6 lg:px-8">
       <div class="flex justify-center items-center mx-auto">
         <div
-          v-if="currentPlayerProgressData"
+          v-if="gameStats"
           class="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7 rounded-2xl text-center"
         >
           <RouterLink
-            v-for="(details, game) in currentPlayerProgressData()"
+            v-for="(details, game) in gameStats[player].ProgressData"
             :key="game"
             to="/StatisticsPage"
             class="flex items-center bg-gray-400/5 max-h-40"
           >
-            <img :src="`Trophylvl${details.Score > 4 ? 2 : 1}.jpg`" alt="Trophy Level" class="max-w-32 p-5" />
+            <img :src="`Trophylvl${details.score > 4 ? 2 : 1}.jpg`" alt="Trophy Level" class="max-w-32 p-5" />
             <div class="p-5">
               <p class="text-2xl font-semibold tracking-tight text-gray-900">
                 {{ game }}
               </p>
-              <p v-if="details.score" class="text-3xl font-semibold leading-6 text-gray-600">
+              <p v-if="details" class="text-3xl font-semibold leading-6 text-gray-600">
                 Score: {{ details.score }}, Level: {{ details.level }}
               </p>
             </div>

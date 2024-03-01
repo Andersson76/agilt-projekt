@@ -7,7 +7,7 @@
 
 <template>
   <Header />
-  <Navbar />
+  <Navbar class="hidden lg:block" />
 
   <RyansGame />
 

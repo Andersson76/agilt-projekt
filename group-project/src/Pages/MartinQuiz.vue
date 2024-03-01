@@ -40,20 +40,21 @@ const questions = ref([
 let quizCompleted = ref(false)
 const currentQuestion = ref(0)
 
-//Function to collect score
-/* This function will run and check for changes each time user moves to next question
-and will then collect new possible score data */
-const count = ref(0)
+//Function to collect score and put it in local storage
+/* It will loop trough the questions each time it runs and check for how many
+answers is correct and update the score */
 const score = computed(() => {
-  //It sets value to 0 each time it runs again and then just recounts everything
-  count.value = 0
+
+  const storedData = JSON.parse(localStorage.getItem('gameStats'))
+  storedData.User1.ProgressData.MartinBGame.score = 0
+
   questions.value.map(q => {
     if (q.selected == q.answer) {
-      count.value = count.value + 1
-      localStorage.setItem('quiz-score', count.value)
+      storedData.User1.ProgressData.MartinBGame.score++
+      localStorage.setItem('gameStats', JSON.stringify(storedData))
     }
   })
-  return count.value
+  return storedData.User1.ProgressData.MartinBGame.score
 })
 
 //Function to update to new question continuously

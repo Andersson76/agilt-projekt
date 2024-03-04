@@ -49,7 +49,7 @@
   const questions = ref([])
   const currentQuestionIndex = ref(0)
   const correctAnswer = ref(null)
-  const score = ref(parseInt(localStorage.getItem('MartinAGameScore')) || 0)
+  const score = ref(0)
   const gameOver = ref(false)
   const currentQuestion = ref({})
   const askedQuestions = ref([])
@@ -99,21 +99,16 @@
   }
 
   const saveScoreToLocalStorage = () => {
-    const gameStats = JSON.parse(localStorage.getItem('gameStats')) || {}
-    const playerName = 'User1'
-    if (!gameStats[playerName]) {
-      gameStats[playerName] = { ProgressData: {} }
-    }
-    if (!gameStats[playerName].ProgressData['MartinAGame']) {
-      gameStats[playerName].ProgressData['MartinAGame'] = { level: 0, score: 0 }
-    }
-    gameStats[playerName].ProgressData['MartinAGame'].score = score.value
-    localStorage.setItem('gameStats', JSON.stringify(gameStats))
-    console.log(saveScoreToLocalStorage)
+    let storedData = JSON.parse(localStorage.getItem('gameStats'))
+
+    storedData.User1.ProgressData.MartinAGame.score[0] = score.value
+
+    localStorage.setItem('gameStats', JSON.stringify(storedData))
+
+    return storedData.User1.ProgressData.MartinAGame.score
   }
 
   const restartGame = () => {
-    //score.value = 0
     gameOver.value = false
     questionCount = 0
     askedQuestions.value = []

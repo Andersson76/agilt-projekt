@@ -58,6 +58,8 @@ const questions = ref([
   },
 ])
 
+const activeplayer = JSON.parse(localStorage.getItem('activeplayer'))
+
 let quizCompleted = ref(false)
 const currentQuestion = ref(0)
 
@@ -67,15 +69,15 @@ answers is correct and update the score */
 const score = computed(() => {
 
   const storedData = JSON.parse(localStorage.getItem('gameStats'))
-  storedData.User1.ProgressData.MartinBGame.score[0] = 0
+  storedData[activeplayer].ProgressData.MartinBGame.score[0] = 0
 
   questions.value.map(q => {
     if (q.selected == q.answer) {
-      storedData.User1.ProgressData.MartinBGame.score[0]++
+      storedData[activeplayer].ProgressData.MartinBGame.score[0]++
       localStorage.setItem('gameStats', JSON.stringify(storedData))
     }
   })
-  return storedData.User1.ProgressData.MartinBGame.score[0]
+  return storedData[activeplayer].ProgressData.MartinBGame.score[0]
 })
 
 //Function to update to new question continuously

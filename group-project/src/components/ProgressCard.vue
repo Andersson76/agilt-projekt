@@ -9,7 +9,13 @@
 
   let gameStats
 
-  const player = ref('User1')
+  const player = ref('')
+
+  if (!JSON.parse(localStorage.getItem("activeplayer"))) {
+    localStorage.setItem('activeplayer', JSON.stringify('User1'))
+  } else {
+    player.value = JSON.parse(localStorage.getItem('activeplayer'))
+  }
 
   if (!JSON.parse(localStorage.getItem('gameStats'))) {
     gameStats = {
@@ -90,6 +96,7 @@
 
   function setPlayer(playerName) {
     player.value = playerName
+    localStorage.setItem('activeplayer', JSON.stringify(playerName))
   }
 
   function ResetLocalStorage() {

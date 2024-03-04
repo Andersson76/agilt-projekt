@@ -3,6 +3,7 @@
 import {ref, computed} from 'vue'
 import Header from '../components/Header.vue'
 import Navbar from '../components/Navbar.vue'
+import Footer from '../components/Footer.vue'
 
 const questions = ref([
   {
@@ -35,6 +36,26 @@ const questions = ref([
     ],
     selected: null
   },
+  {
+    question: 'What is 10 * 3?',
+    answer: 0,
+    options: [
+      30,
+      33,
+      300
+    ],
+    selected: null
+  },
+  {
+    question: 'How much is 2 + 7?',
+    answer: 2,
+    options: [
+      10,
+      11,
+      9
+    ],
+    selected: null
+  },
 ])
 
 let quizCompleted = ref(false)
@@ -46,15 +67,15 @@ answers is correct and update the score */
 const score = computed(() => {
 
   const storedData = JSON.parse(localStorage.getItem('gameStats'))
-  storedData.User1.ProgressData.MartinBGame.score = 0
+  storedData.User1.ProgressData.MartinBGame.score[0] = 0
 
   questions.value.map(q => {
     if (q.selected == q.answer) {
-      storedData.User1.ProgressData.MartinBGame.score++
+      storedData.User1.ProgressData.MartinBGame.score[0]++
       localStorage.setItem('gameStats', JSON.stringify(storedData))
     }
   })
-  return storedData.User1.ProgressData.MartinBGame.score
+  return storedData.User1.ProgressData.MartinBGame.score[0]
 })
 
 //Function to update to new question continuously
@@ -72,7 +93,6 @@ const setAnswer = e => {
 }
 
 const nextQuestion = () => {
-  console.log(questions.value)
   //If user is not at the end of the quiz, continue to iterate forward
   if (currentQuestion.value < questions.value.length - 1) {
     currentQuestion.value++
@@ -120,8 +140,8 @@ function disableOptions(selectedIndex, currentIndex) {
 </script>
 
 <template>
-  <!-- <Header />
-  <Navbar /> -->
+  <Header />
+  <Navbar />
   <main class="app">
     <h1 class="header">Quiz</h1>
     <!-- Only render quiz if quiz isnt already completed -->
@@ -161,7 +181,7 @@ function disableOptions(selectedIndex, currentIndex) {
       <!-- We also change the button text to "Finish" if user is at last question, if not we
       use the text "Select an option", and as soon as the user selects an option
       we use the text "Next question" as long as the user is not at the final question -->
-      <button @click="nextQuestion" :disabled="!getCurrentQuestion.selected" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+      <button @click="nextQuestion" :disabled="!getCurrentQuestion.selected" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50, buttonStyle">
       {{
         getCurrentQuestion.index == questions.length - 1
         ? 'Finish'
@@ -172,12 +192,13 @@ function disableOptions(selectedIndex, currentIndex) {
       </button>
     </section>
 
-    <section v-else>
+    <section v-else class="app">
       <h2>You have finished the quiz!</h2>
-      <p>Your score is {{ score }} / {{ questions.length }}</p>
-      <button @click="resetQuiz" type="button" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Try again</button>
+      <p style="margin-bottom: 2rem;">Your score is {{ score }} / {{ questions.length }}</p>
+      <button @click="resetQuiz" type="button" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50, buttonStyle">Try again</button>
     </section>
   </main>
+  <Footer />
 </template>
 
 <style>
@@ -261,6 +282,25 @@ function disableOptions(selectedIndex, currentIndex) {
 
 .option input {
   display: none;
+}
+
+.buttonStyle {
+  appearance: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  padding: 0.5rem 1rem;
+  background-color:#85E0FC;
+  color: #271C36;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  border-radius: 0.5rem;
+}
+
+.buttonStyle:disabled {
+  opacity: 0.5;
 }
 
 </style>

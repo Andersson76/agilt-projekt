@@ -2,7 +2,7 @@
   import {
     ref,
     // reactive,
-    computed
+    //computed
     // onMounted
   } from 'vue'
   import { RouterLink } from 'vue-router'
@@ -28,7 +28,7 @@
           MartinAGame: {
             level: 0,
             score: [0, 0],
-            Maxscore: 500
+            Maxscore: 50
           },
           MustafsGame: {
             level: 0,
@@ -52,7 +52,7 @@
           MartinAGame: {
             level: 0,
             score: [0, 0],
-            Maxscore: 500
+            Maxscore: 50
           },
           MustafsGame: {
             level: 0,
@@ -96,7 +96,6 @@
     localStorage.removeItem('gameStats')
     location.reload()
   }
-
 </script>
 
 <template>
@@ -147,19 +146,24 @@
               </p>
               <p v-if="details" class="text-xl font-semibold leading-6">
                 Score: {{ details.score[0] }} / {{ details.Maxscore }}
-
               </p>
               <div class="border-2 border-black">
-
-
-              <p v-if="details" class=" h-5 text-xl font-semibold leading-6 bg-green-500 p-0 m-0 progress-bar"
-              role="progressbar"
-              :style="{ width: `${(parseInt(details.score[0]) / parseInt(details.Maxscore)) * 100}%` }"
-              aria-valuenow="{{ (parseInt(details.score[0]) / parseInt(details.Maxscore)) * 100 }}"
-              aria-valuemin="0"
-              aria-valuemax="100">
-              </p>
-            </div>
+                <p
+                  v-if="details"
+                  class="h-5 text-xl font-semibold leading-6 bg-green-500 p-0 m-0 progress-bar"
+                  role="progressbar"
+                  :style="{
+                    width: `${
+                      (parseInt(details.score[0]) /
+                        parseInt(details.Maxscore)) *
+                      100
+                    }%`
+                  }"
+                  aria-valuenow="{{ (parseInt(details.score[0]) / parseInt(details.Maxscore)) * 100 }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></p>
+              </div>
               <p v-if="details" class="text-xl font-semibold leading-6">
                 Level: {{ details.level }}
               </p>

@@ -1,8 +1,8 @@
 <script setup>
   import {
-    ref
+    ref,
     // reactive,
-    // computed,
+    computed
     // onMounted
   } from 'vue'
   import { RouterLink } from 'vue-router'
@@ -23,7 +23,7 @@
           MartinBGame: {
             level: 0,
             score: [0, 0],
-            Maxscore: 500
+            Maxscore: 10
           },
           MartinAGame: {
             level: 0,
@@ -47,7 +47,7 @@
           MartinBGame: {
             level: 0,
             score: [0, 0],
-            Maxscore: 500
+            Maxscore: 10
           },
           MartinAGame: {
             level: 0,
@@ -84,9 +84,19 @@
     console.log(stats)
   }
 
+  // const percentage = computed(() => {
+  //   return (details.score[0] / details.Maxscore[0]) * 100
+  // })
+
   function setPlayer(playerName) {
     player.value = playerName
   }
+
+  function ResetLocalStorage() {
+    localStorage.removeItem('gameStats')
+    location.reload()
+  }
+
 </script>
 
 <template>
@@ -106,6 +116,12 @@
       class="px-5"
       @click="setPlayer('User2')"
     />
+    <input
+      type="button"
+      value="Reset Local Storage"
+      class="px-5"
+      @click="ResetLocalStorage()"
+    />
   </div>
   <div class="flex bg-white justify-center">
     <div class="max-w-7xl px-6 lg:px-8">
@@ -121,7 +137,7 @@
             class="flex items-center bg-gray-400/5 max-h-40"
           >
             <img
-              :src="`Trophylvl${details.score > 4 ? 2 : 1}.jpg`"
+              :src="`Trophylvl${details.score[0] > 4 ? 2 : 1}.jpg`"
               alt="Trophy Level"
               class="max-w-32 p-5"
             />
@@ -131,7 +147,19 @@
               </p>
               <p v-if="details" class="text-xl font-semibold leading-6">
                 Score: {{ details.score[0] }} / {{ details.Maxscore }}
+
               </p>
+              <div class="border-2 border-black">
+
+
+              <p v-if="details" class=" h-5 text-xl font-semibold leading-6 bg-green-500 p-0 m-0 progress-bar"
+              role="progressbar"
+              :style="{ width: `${(parseInt(details.score[0]) / parseInt(details.Maxscore)) * 100}%` }"
+              aria-valuenow="{{ (parseInt(details.score[0]) / parseInt(details.Maxscore)) * 100 }}"
+              aria-valuemin="0"
+              aria-valuemax="100">
+              </p>
+            </div>
               <p v-if="details" class="text-xl font-semibold leading-6">
                 Level: {{ details.level }}
               </p>

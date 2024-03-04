@@ -3,12 +3,12 @@
     <div ref="game" />
   </div>
   <div class="hidden lg:block">
-  <div class="justify-center flex md:flex-grow text-5xl ">
-    <span class="justify-center flex"><img src="/leftRight.png" alt="left right arrow">Move</span>
-    <span class="justify-center flex"><img src="/up.png" alt="up arrow">Jump</span>
-    <span class="justify-center flex"><img src="/space.png" alt="spacebar">Shoot</span>
+    <div class="justify-center flex md:flex-grow text-5xl ">
+      <span class="justify-center flex"><img src="/leftRight.png" alt="left right arrow">Move</span>
+      <span class="justify-center flex"><img src="/up.png" alt="up arrow">Jump</span>
+      <span class="justify-center flex"><img src="/space.png" alt="spacebar">Shoot</span>
+    </div>
   </div>
-</div>
 </template>
 
 <script setup>
@@ -360,7 +360,7 @@ function lazerFired(scene) {
   scene.physics.add.collider(lazer, stars, (lazer, star) => {
     destroyStar(lazer, star);
     if (stars.countActive(true) === 0) {
-      nextLevel();
+      nextLevel(scene);
     }
   }, null, scene);
   scene.physics.add.collider(lazer, bombs, destroyBomb, null, scene);
@@ -384,27 +384,43 @@ function collectStar(player, star) {
   star.disableBody(true, true);
   star.textObj.setVisible(false);
   if (star.textObj.text % level === 0) {
-    score += 10;
+    score += 5;
     scoreText.setText('Score: ' + score);
   } else {
-    score -= 10;
+    score -= 5;
     scoreText.setText('Score: ' + score);
   }
   if (stars.countActive(true) === 0) {
-    nextLevel();
+    nextLevel(this);
   }
 }
 
 // Move to next level
-function nextLevel() {
-  level += 1;
-
-  levelText.setText('Level: ' + level);
-  InstructionText.setText('Collect Divisibles of ' + level);
-  stars.children.iterate(function (child) {
-    child.enableBody(true, child.x, 0, true, true);
-    child.textObj.setVisible(true);
-  });
+function nextLevel(scene) {
+  if (level > 9) {
+    const youWinText = scene.add.text(400, 300, 'You Win!', {
+      fontSize: '64px',
+      fill: '#ffffff',
+      backgroundColor: '#000000',
+      padding: 20,
+    }).setOrigin(0.5);
+    setTimeout(() => {
+      youWinText.destroy(); // Remove the "You Win" text after 2 seconds
+      scene.scene.restart();
+      gameOver = false;
+      level = 1;
+      score = 0;
+      storageCheck();
+    }, 5000);
+  } else {
+    level += 1;
+    levelText.setText('Level: ' + level);
+    InstructionText.setText('Collect Divisibles of ' + level);
+    stars.children.iterate(function (child) {
+      child.enableBody(true, child.x, 0, true, true);
+      child.textObj.setVisible(true);
+    });
+  }
   const x = player.x < 400 ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
   const bomb = bombs.create(x, 16, 'bomb');
   bomb.setBounce(1);
@@ -424,13 +440,18 @@ function hitBomb(player, bomb) {
   storageCheck();
   score = 0;
   level = 1;
+
+  const restartText = this.add.text(400, 300, 'GAME OVER', {
+    fontSize: '32px',
+    fill: '#ffffff',
+    backgroundColor: '#000000',
+    padding: 10,
+  }).setOrigin(0.5);
+
   setTimeout(() => {
-    this.scene.stop();
-    setTimeout(() => {
-      this.scene.start();
-      gameOver = false;
-    }, 500);
-  }, 500);
+    this.scene.restart();
+    gameOver = false;
+  }, 5000);
 }
 
 // Check and update stored game data
@@ -441,7 +462,6 @@ function storageCheck() {
 
   if (!storedData) {
     storedData = { score: 0, level: 0 };
-
   }
   if (level > (storedData.level || 0)) {
     storedData.level = level
@@ -456,6 +476,5 @@ function storageCheck() {
   console.log(gameStats.User1);
 
   localStorage.setItem('RyansGameData', JSON.stringify(storedData));
-
 }
 </script>

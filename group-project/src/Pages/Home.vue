@@ -10,5 +10,5 @@
   <Header />
   <Navbar />
   <ProgressCard />
-  <Footer />
+  <Footer class="sm:static md:fixed lg:fixed" />
 </template>

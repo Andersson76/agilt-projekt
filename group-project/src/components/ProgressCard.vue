@@ -22,15 +22,18 @@
           },
           MartinBGame: {
             level: 0,
-            score: 0
+            score: [0, 0],
+            Maxscore: 500
           },
           MartinAGame: {
             level: 0,
-            score: 0
+            score: [0, 0],
+            Maxscore: 500
           },
           MustafsGame: {
             level: 0,
-            score: 0
+            score: [0, 0],
+            Maxscore: 500
           }
         }
       },
@@ -43,15 +46,18 @@
           },
           MartinBGame: {
             level: 0,
-            score: 0
+            score: [0, 0],
+            Maxscore: 500
           },
           MartinAGame: {
             level: 0,
-            score: 0
+            score: [0, 0],
+            Maxscore: 500
           },
           MustafsGame: {
             level: 0,
-            score: 0
+            score: [0, 0],
+            Maxscore: 500
           }
         }
       }

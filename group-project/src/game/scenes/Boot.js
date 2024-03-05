@@ -6,14 +6,10 @@ export class Boot extends Scene
     {
         super('Boot');
     }
-
     preload ()
     {
-        
-
-        this.load.image('background', 'assets/bg.png');
+        this.load.image('background', 'treasuremath.png');
     }
-
     create ()
     {
         this.scene.start('Preloader');

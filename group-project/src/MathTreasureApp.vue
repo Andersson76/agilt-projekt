@@ -27,7 +27,7 @@ const currentScene = (scene) => {
 
 const handleSceneChange = (scene) => {
     console.log("Scene changed to:", scene);
-   
+
 }
 
 
@@ -39,12 +39,12 @@ const handleSceneChange = (scene) => {
 
 
 <template>
-   
+
     <PhaserGame ref="phaserRef" @current-active-scene="handleSceneChange" />
     <div>
-        <button class="button" @click="playGame">Play Game</button>
+        <button class="button" @click="playGame()">Play Game</button>
         <div>
-   
+
     </div>
     </div>
 </template>

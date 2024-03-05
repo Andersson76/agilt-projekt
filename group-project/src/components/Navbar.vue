@@ -78,10 +78,12 @@
       href: '#',
       imageSrc: 'category111.jpg'
     },
-    { name: 'Math', href: 'Andersson', imageSrc: 'calc.jpg' },
+    { name: 'Math',
+    href: 'Andersson',
+    imageSrc: 'calc.jpg' },
     {
-      name: 'All Games',
-      href: '#',
+      name: 'MathTreasure',
+      href: 'MathTreasure',
       imageSrc: 'nvey the concept .png'
     },
     {

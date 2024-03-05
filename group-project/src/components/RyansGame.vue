@@ -469,7 +469,7 @@ function storageCheck() {
   }
   if (score > (storedData.score || 0)) {
     storedData.score = score
-    gameStats.User1.ProgressData.RyansGame.score = score
+    gameStats.User1.ProgressData.RyansGame.score[0] = score
   }
 
   localStorage.setItem('gameStats', JSON.stringify(gameStats));

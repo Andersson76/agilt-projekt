@@ -1,0 +1,148 @@
+{
+    "anims": [
+        {
+            "key": "largeknight_walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "enemies",
+                    "frame": "largeknight_walk_1"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "largeknight_walk_2"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "largeknight_walk_3"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "largeknight_walk_4"
+                }
+            ]
+        },
+        {
+            "key": "largeknight_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "enemies",
+                    "frame": "largeknight_idle_1"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "largeknight_idle_2"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "largeknight_idle_3"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "largeknight_idle_4"
+                }
+            ]
+        },
+        {
+            "key": "eliteknight_walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "enemies",
+                    "frame": "eliteknight_walk_1"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "eliteknight_walk_2"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "eliteknight_walk_3"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "eliteknight_walk_4"
+                }
+            ]
+        },
+        {
+            "key": "eliteknight_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "enemies",
+                    "frame": "eliteknight_idle_1"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "eliteknight_idle_2"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "eliteknight_idle_3"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "eliteknight_idle_4"
+                }
+            ]
+        },
+        {
+            "key": "knight_walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "enemies",
+                    "frame": "knight_walk_1"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "knight_walk_2"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "knight_walk_3"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "knight_walk_4"
+                }
+            ]
+        },
+        {
+            "key": "knight_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "enemies",
+                    "frame": "knight_idle_1"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "knight_idle_2"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "knight_idle_3"
+                },
+                {
+                    "key": "enemies",
+                    "frame": "knight_idle_4"
+                }
+            ]
+        }
+    ]
+}

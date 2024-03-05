@@ -9,6 +9,7 @@ import BergsQuiz from './Pages/MartinQuiz.vue'
 import Andersson from "./components/Andersson.vue";
 import ProductBoxPage from './Pages/ProductBoxPage.vue'
 import GameStatsPage from './Pages/GameStatsPage.vue'
+import MathTreasureApp from './MathTreasureApp.vue';
 
 export default createRouter({
   history: createWebHistory(),
@@ -45,5 +46,10 @@ export default createRouter({
       component: GameStatsPage,
       path: '/StatisticsPage',
     },
+
+    {
+      component: MathTreasureApp,
+      path: '/MathTreasure'
+    }
   ],
 });

@@ -10,6 +10,7 @@ import { GameOver } from './game/scenes/GameOver';
 import { MainMenu } from './game/scenes/MainMenu';
 import Phaser from 'phaser';
 import { Preloader } from './game/scenes/Preloader';
+import { YouWin } from './game/scenes/YouWin'
 
 createApp(App).use(router).mount('#app')
 
@@ -37,6 +38,7 @@ const config = {
         MainMenu,
         Game,
         GameOver,
+        YouWin,
 
     ]
 };

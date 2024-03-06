@@ -7,6 +7,8 @@ import { Scene } from 'phaser';
 export class Game extends Scene {
     constructor() {
         super('Game');
+        this.correctAnswersCount = 0; 
+        this.totalChests = 0;
        
     }
 
@@ -22,7 +24,7 @@ export class Game extends Scene {
    const doorTiles = map.addTilesetImage('DoubleDoor', 'doorTiles')
    const rutlagerLayer = map.createLayer('Rutlager 1', [ floorTiles, wallTiles, doorTiles])
    
-   // this.scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#FFF' });
+   //this.scoreText = this.add.text(0, 0, 'Score: 0', { fontSize: '32px', fill: '#FFF' });
    //this.score = 0;
  
     this.player = this.physics.add.sprite(560, 1385, 'archer', 'archer_idle_1')
@@ -30,12 +32,16 @@ export class Game extends Scene {
     this.physics.add.collider(this.player, rutlagerLayer);
     this.cameras.main.startFollow(this.player, true, 0.05, 0.05)
     rutlagerLayer.renderDebug
+       
+
+    
 
     this.chests = this.physics.add.staticGroup();
     const chestLayer = map.getObjectLayer('Objektlager 1')
     chestLayer.objects.forEach((obj, index) => {
     const chest = this.chests.create(obj.x, obj.y - 16, 'chestTiles', 4).setOrigin(0, 1)
-    chest.setData('id', index + 1); // Assign unique ID to each chest
+    chest.setData('id', index + 1);
+    this.totalChests = this.chests.getChildren().length;
     this.physics.add.overlap(this.player, chest, this.handleChestCollision, null, this);  
 })
 
@@ -53,7 +59,12 @@ export class Game extends Scene {
               const chest =  this.chests.getChildren().find(chest => chest.getData ('id') === chestId); 
               if (chest) {
                 chest.destroy()
-              }
+                this.correctAnswersCount++;
+                if (this.correctAnswersCount === this.totalChests) {
+                    // All chests collected and questions answered correctly, player wins
+                    this.scene.start('YouWin');
+                }
+            }
             } else {
                 this.scene.start('GameOver')
                 EventBus.emit('game-over')
@@ -93,7 +104,7 @@ enemyObjects.forEach((enemyObj) => {
 
     this.physics.add.collider(this.player, this.enemies, this.onPlayerEnemyCollision, null, this)
     this.physics.world.createDebugGraphic()
-    this.cameras.main.setZoom(1.5)
+    this.cameras.main.setZoom(1.6)
 
     this.inputKeys = this.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -131,11 +142,12 @@ enemyObjects.forEach((enemyObj) => {
         playerVelocity.normalize().scale(speed);
         this.player.setVelocity(playerVelocity.x, playerVelocity.y)
 
+       
 
        this.enemies.getChildren().forEach((enemy) => {
             const distance = Phaser.Math.Distance.Between(enemy.x, enemy.y, this.player.x, this.player.y)
             if (distance < 100) { 
-                this.physics.moveToObject(enemy, this.player, 70)
+                this.physics.moveToObject(enemy, this.player, 40)
             } else {
                 enemy.setVelocity(0)
             }

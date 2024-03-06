@@ -39,7 +39,7 @@
           MustafsGame: {
             level: 0,
             score: [0, 0],
-            Maxscore: 500
+            Maxscore: 70
           }
         }
       },
@@ -63,7 +63,7 @@
           MustafsGame: {
             level: 0,
             score: [0, 0],
-            Maxscore: 500
+            Maxscore: 70
           }
         }
       }

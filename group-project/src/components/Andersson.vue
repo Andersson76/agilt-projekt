@@ -61,6 +61,8 @@
   const askedQuestions = ref([])
   let questionCount = 0
 
+  let activePlayer = JSON.parse(localStorage.getItem('activeplayer'))
+
   const feedback = computed(() =>
     correctAnswer.value ? 'Correct!' : 'Wrong! Try next question.'
   )
@@ -107,11 +109,11 @@
   const saveScoreToLocalStorage = () => {
     let storedData = JSON.parse(localStorage.getItem('gameStats'))
 
-    storedData.User1.ProgressData.MathMaster.score[0] = score.value
+    storedData[activePlayer].ProgressData.MathMaster.score[0] = score.value
 
     localStorage.setItem('gameStats', JSON.stringify(storedData))
 
-    return storedData.User1.ProgressData.MathMaster.score
+    return storedData[activePlayer].ProgressData.MathMaster.score[0]
   }
 
   const restartGame = () => {

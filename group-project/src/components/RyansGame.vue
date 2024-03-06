@@ -15,6 +15,8 @@
 import { ref, onBeforeUnmount, onMounted, onUnmounted } from 'vue';
 import Phaser from 'phaser';
 
+let activePlayer = JSON.parse(localStorage.getItem('activeplayer'))
+
 // Game variables
 let player;
 let stars;
@@ -465,11 +467,11 @@ function storageCheck() {
   }
   if (level > (storedData.level || 0)) {
     storedData.level = level
-    gameStats.User1.ProgressData.DivisibleWizard.level = level
+    gameStats[activePlayer].ProgressData.DivisibleWizard.level = level
   }
   if (score > (storedData.score || 0)) {
     storedData.score = score
-    gameStats.User1.ProgressData.DivisibleWizard.score[0] = score
+    gameStats[activePlayer].ProgressData.DivisibleWizard.score[0] = score
   }
 
   localStorage.setItem('gameStats', JSON.stringify(gameStats));

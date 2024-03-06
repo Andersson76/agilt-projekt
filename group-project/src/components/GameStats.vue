@@ -1,12 +1,3 @@
-<template>
-  <Header />
-  <Navbar />
-  <div>
-    <canvas ref="gameChartCanvas"></canvas>
-  </div>
-  <Footer />
-</template>
-
 <script setup>
 import Header from './Header.vue'
 import Navbar from './Navbar.vue'
@@ -84,3 +75,14 @@ onMounted(() => {
   }
 });
 </script>
+
+<template>
+  <Header />
+  <Navbar />
+
+  <div>
+    <h1 class="text-4xl text-center font-bold py-4">{{ activePlayer }} Stats</h1>
+    <canvas ref="gameChartCanvas"></canvas>
+  </div>
+  <Footer />
+</template>

@@ -1,5 +1,6 @@
 <script setup>
   import {
+    onMounted,
     ref,
     // reactive,
     //computed
@@ -10,6 +11,9 @@
   let gameStats
 
   const player = ref('')
+
+
+  player.value = JSON.parse(localStorage.getItem('activeplayer'))
 
   if (!JSON.parse(localStorage.getItem("activeplayer"))) {
     localStorage.setItem('activeplayer', JSON.stringify('User1'))
@@ -22,21 +26,25 @@
       User1: {
         ProgressData: {
           DivisibleWizard: {
+            name: 'Divisible Wizard',
             level: 0,
             score: [0, 0],
             Maxscore: 500
           },
           QuizzyTime: {
+            name: 'Quizzy Time',
             level: 0,
             score: [0, 0],
             Maxscore: 10
           },
           MathMaster: {
+            name: 'Math Master',
             level: 0,
             score: [0, 0],
             Maxscore: 50
           },
           TreasureMathHunt: {
+            name: 'Treasure Math Hunt',
             level: 0,
             score: [0, 0],
             Maxscore: 70
@@ -46,21 +54,25 @@
       User2: {
         ProgressData: {
           DivisibleWizard: {
+            name: 'Divisibled Wizard',
             level: 0,
             score: [0, 0],
             Maxscore: 500
           },
           QuizzyTime: {
+            name: 'Quizzy Time',
             level: 0,
             score: [0, 0],
             Maxscore: 10
           },
           MathMaster: {
+            name: 'Math Master',
             level: 0,
             score: [0, 0],
             Maxscore: 50
           },
           TreasureMathHunt: {
+            name: 'Treasure Math Hunt',
             level: 0,
             score: [0, 0],
             Maxscore: 70
@@ -94,10 +106,7 @@
   //   return (details.score[0] / details.Maxscore[0]) * 100
   // })
 
-  function setPlayer(playerName) {
-    player.value = playerName
-    localStorage.setItem('activeplayer', JSON.stringify(playerName))
-  }
+
 
   function ResetLocalStorage() {
     localStorage.removeItem('gameStats')
@@ -110,24 +119,18 @@
     <h2>Your Achievements</h2>
   </div>
   <div class="flex justify-center text-l py-3">
+
     <input
-      type="button"
-      value="Player1"
-      class="px-5"
-      @click="setPlayer('User1')"
-    />
-    <input
-      type="button"
-      value="Player2"
-      class="px-5"
-      @click="setPlayer('User2')"
-    />
-    <input
-      type="button"
-      value="Reset Local Storage"
-      class="px-5"
-      @click="ResetLocalStorage()"
-    />
+  type="button"
+  value="Reset Local Storage"
+  class="px-5 hover:bg-gray-300 focus:bg-blue-700 focus:outline-none rounded-md transition-colors duration-150 ease-in-out"
+  @click="ResetLocalStorage()"
+/>
+    <div>
+      <p class="border border-black px-1">
+        Current player: {{ player }}
+    </p>
+  </div>
   </div>
   <div class="flex bg-white justify-center">
     <div class="max-w-7xl px-6 lg:px-8">
@@ -140,7 +143,7 @@
             v-for="(details, game) in gameStats[player].ProgressData"
             :key="game"
             to="/StatisticsPage"
-            class="flex items-center bg-gray-400/5 max-h-40"
+            class="flex items-center bg-gray-400/5 max-h-50"
           >
             <img
               :src="`Trophylvl${details.score[0] > 4 ? 2 : 1}.jpg`"
@@ -149,10 +152,10 @@
             />
             <div class="p-5">
               <p class="text-2xl font-semibold tracking-tight text-gray-900">
-                {{ game }}
+                {{ details.name }}
               </p>
               <p v-if="details" class="text-xl font-semibold leading-6">
-                Score: {{ details.score[0] }} / {{ details.Maxscore }}
+                &starf; {{ details.score[0] }} / {{ details.Maxscore }}
               </p>
               <div class="border-2 border-black">
                 <p
@@ -169,9 +172,9 @@
                   aria-valuenow="{{ (parseInt(details.score[0]) / parseInt(details.Maxscore)) * 100 }}"
                   aria-valuemin="0"
                   aria-valuemax="100"
-                ></p>
+                />
               </div>
-              <p v-if="details" class="text-xl font-semibold leading-6">
+              <p v-if="details.level > 0" class="text-xl font-semibold leading-6">
                 Level: {{ details.level }}
               </p>
             </div>

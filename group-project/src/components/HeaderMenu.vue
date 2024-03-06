@@ -44,6 +44,29 @@
               >License</a
             >
           </MenuItem>
+<MenuItem v-slot="{ active }">
+          <input
+      type="button"
+      value="Player1"
+      :class="[
+                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                'block px-4 py-2 text-sm w-full text-left'
+              ]"
+      @click="setPlayer('User1')"
+    />
+              </MenuItem>
+<MenuItem v-slot="{ active }">
+    <input
+      type="button"
+      value="Player2"
+      :class="[
+                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                'block px-4 py-2 text-sm w-full text-left'
+              ]"
+      @click="setPlayer('User2')"
+    />
+</MenuItem>
+
           <!-- <form method="POST" action="#"> -->
           <MenuItem v-slot="{ active }">
             <button
@@ -76,5 +99,11 @@
     isLoggedIn.value = !isLoggedIn.value
     // Skicka ett custom event för att meddela förälderkomponenten om inloggningsstatusen
     emit('loginStatusChanged', isLoggedIn.value)
+  }
+
+  function setPlayer(playerName) {
+    localStorage.setItem('activeplayer', JSON.stringify(playerName))
+    location.reload()
+
   }
 </script>

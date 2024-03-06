@@ -33,7 +33,7 @@ let isRightButtonDown = false;
 let isJumpButtonDown = false;
 let isShootButtonDown = false;
 let InstructionText;
-let storedData = JSON.parse(localStorage.getItem('RyansGameData'));
+let storedData = JSON.parse(localStorage.getItem('DivisibleWizardData'));
 let direction = 'turn';
 let lastDirection = 'right';
 
@@ -456,7 +456,7 @@ function hitBomb(player, bomb) {
 
 // Check and update stored game data
 function storageCheck() {
-  storedData = JSON.parse(localStorage.getItem('RyansGameData'));
+  storedData = JSON.parse(localStorage.getItem('DivisibleWizardData'));
 
   let gameStats = JSON.parse(localStorage.getItem('gameStats'));
 
@@ -465,16 +465,16 @@ function storageCheck() {
   }
   if (level > (storedData.level || 0)) {
     storedData.level = level
-    gameStats.User1.ProgressData.RyansGame.level = level
+    gameStats.User1.ProgressData.DivisibleWizard.level = level
   }
   if (score > (storedData.score || 0)) {
     storedData.score = score
-    gameStats.User1.ProgressData.RyansGame.score[0] = score
+    gameStats.User1.ProgressData.DivisibleWizard.score[0] = score
   }
 
   localStorage.setItem('gameStats', JSON.stringify(gameStats));
   console.log(gameStats.User1);
 
-  localStorage.setItem('RyansGameData', JSON.stringify(storedData));
+  localStorage.setItem('DivisibleWizardData', JSON.stringify(storedData));
 }
 </script>

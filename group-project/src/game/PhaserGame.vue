@@ -41,14 +41,14 @@ const saveGameScore = () => {
 
  gameStats.User1 = gameStats.User1 || {};
   gameStats.User1.ProgressData = gameStats.User1.ProgressData || {};
-  gameStats.User1.ProgressData.MustafsGame = gameStats.User1.ProgressData.MustafsGame || {};
-  gameStats.User1.ProgressData.MustafsGame.score = gameStats.User1.ProgressData.MustafsGame.score || [];
+  gameStats.User1.ProgressData.TreasureMathHunt = gameStats.User1.ProgressData.TreasureMathHunt || {};
+  gameStats.User1.ProgressData.TreasureMathHunt.score = gameStats.User1.ProgressData.TreasureMathHunt.score || [];
 
-  gameStats.User1.ProgressData.MustafsGame.score[0] = score.value;
+  gameStats.User1.ProgressData.TreasureMathHunt.score[0] = score.value;
 
   localStorage.setItem('gameStats', JSON.stringify(gameStats));
 
-  return gameStats.User1.ProgressData.MustafsGame.score;
+  return gameStats.User1.ProgressData.TreasureMathHunt.score;
 };
 
 
@@ -116,7 +116,7 @@ defineExpose({ scene, game })
 </script>
 
 <template>
-   
+
   <!--  <div id="game-container"></div>
   <div class="score-display">Score: {{ score }}</div> -->
   <div id="game-container" class="relative">
@@ -140,9 +140,9 @@ defineExpose({ scene, game })
           </div>
       </div>
   </div>
-  
- 
- 
+
+
+
 
 </template>
 

@@ -105,15 +105,15 @@ answers is correct and update the score */
 const score = computed(() => {
 
   const storedData = JSON.parse(localStorage.getItem('gameStats'))
-  storedData[activeplayer].ProgressData.MartinBGame.score[0] = 0
+  storedData[activeplayer].ProgressData.QuizzyTime.score[0] = 0
 
   questions.value.map(q => {
     if (q.selected == q.answer) {
-      storedData[activeplayer].ProgressData.MartinBGame.score[0]++
+      storedData[activeplayer].ProgressData.QuizzyTime.score[0]++
       localStorage.setItem('gameStats', JSON.stringify(storedData))
     }
   })
-  return storedData[activeplayer].ProgressData.MartinBGame.score[0]
+  return storedData[activeplayer].ProgressData.QuizzyTime.score[0]
 })
 
 //Function to update to new question continuously

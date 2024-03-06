@@ -17,16 +17,13 @@
         >
           <button
             @click="checkAnswer(option)"
+            class="px-4 py-2 bg-headerGreen border-x-2 text-white rounded"
             :class="{
-              'bg-headerGreen': correctAnswer === option,
-              'bg-green-700':
+              'bg-yellow-300':
                 correctAnswer !== null &&
                 correctAnswer !== option &&
-                option === currentQuestion.answer,
-              'bg-gray-300':
-                correctAnswer !== option && option !== currentQuestion.answer
+                option === currentQuestion.answer
             }"
-            class="px-4 py-2 bg-headerGreen border-x-2 text-white rounded"
           >
             {{ option }}
           </button>

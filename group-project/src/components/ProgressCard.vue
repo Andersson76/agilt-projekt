@@ -21,22 +21,22 @@
     gameStats = {
       User1: {
         ProgressData: {
-          RyansGame: {
+          DivisibleWizard: {
             level: 0,
             score: [0, 0],
             Maxscore: 500
           },
-          MartinBGame: {
+          QuizzyTime: {
             level: 0,
             score: [0, 0],
             Maxscore: 10
           },
-          MartinAGame: {
+          MathMaster: {
             level: 0,
             score: [0, 0],
             Maxscore: 50
           },
-          MustafsGame: {
+          TreasureMathHunt: {
             level: 0,
             score: [0, 0],
             Maxscore: 70
@@ -45,22 +45,22 @@
       },
       User2: {
         ProgressData: {
-          RyansGame: {
+          DivisibleWizard: {
             level: 0,
             score: [0, 0],
             Maxscore: 500
           },
-          MartinBGame: {
+          QuizzyTime: {
             level: 0,
             score: [0, 0],
             Maxscore: 10
           },
-          MartinAGame: {
+          MathMaster: {
             level: 0,
             score: [0, 0],
             Maxscore: 50
           },
-          MustafsGame: {
+          TreasureMathHunt: {
             level: 0,
             score: [0, 0],
             Maxscore: 70

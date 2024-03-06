@@ -1,5 +1,5 @@
 <!-- eslint-disable vue/multi-word-component-names -->
-<!-- MartinAGame -->
+<!-- MathMaster -->
 
 <template>
   <Header />
@@ -107,11 +107,11 @@
   const saveScoreToLocalStorage = () => {
     let storedData = JSON.parse(localStorage.getItem('gameStats'))
 
-    storedData.User1.ProgressData.MartinAGame.score[0] = score.value
+    storedData.User1.ProgressData.MathMaster.score[0] = score.value
 
     localStorage.setItem('gameStats', JSON.stringify(storedData))
 
-    return storedData.User1.ProgressData.MartinAGame.score
+    return storedData.User1.ProgressData.MathMaster.score
   }
 
   const restartGame = () => {

@@ -58,6 +58,42 @@ const questions = ref([
   },
 ])
 
+let postTime = ref([{ post: '' }])
+let postNewTime = ref('')
+
+let time = ref(0)
+let isRunning = ref(false)
+let interval = ref(null)
+let finalTime = ref(null)
+
+function countTenths() {
+
+  return time.value = time.value + 0.1
+}
+
+function toggleTimer() {
+  //Prevent multiple intervals from running
+  if (isRunning.value === false) {
+
+    isRunning.value = true
+
+    interval.value = setInterval(countTenths, 100)
+  } else {
+    return
+  }
+
+}
+//Function that stops the interval from running
+function stopTimer() {
+  return clearInterval(interval.value)
+}
+
+function sendTime() {
+  postNewTime.value = finalTime.value.toFixed(1)
+  postTime.value.push({ post: postNewTime.value + " " + "Seconds"})
+  postNewTime.value = ''
+}
+
 const activeplayer = JSON.parse(localStorage.getItem('activeplayer'))
 
 let quizCompleted = ref(false)
@@ -89,6 +125,7 @@ const getCurrentQuestion = computed (() => {
 
 //Set answer to corresponding event target value
 const setAnswer = e => {
+  toggleTimer()
   questions.value[currentQuestion.value].selected = e.target.value
   //Reset value
   e.target.value = null
@@ -100,6 +137,12 @@ const nextQuestion = () => {
     currentQuestion.value++
   } else {
     quizCompleted.value = true
+    finalTime.value = time.value
+    sendTime()
+    //Stop timer and reset values
+    stopTimer()
+    isRunning.value = false
+    time.value = 0
   }
 }
 
@@ -192,12 +235,21 @@ function disableOptions(selectedIndex, currentIndex) {
         : 'Next question'
         }}
       </button>
+      <p>{{ time.toFixed(1) }}</p>
     </section>
 
     <section v-else class="app">
       <h2>You have finished the quiz!</h2>
       <p style="margin-bottom: 2rem;">Your score is {{ score }} / {{ questions.length }}</p>
       <button @click="resetQuiz" type="button" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50, buttonStyle">Try again</button>
+      <h3 class="header-time-history">
+        Time spent on the quiz, from oldest to latest attempt:
+      </h3>
+      <div v-for="(item, index) in postTime" :key="index" class="time-history">
+        <div>
+          {{ item.post }}
+        </div>
+      </div>
     </section>
   </main>
   <Footer />
@@ -218,6 +270,14 @@ function disableOptions(selectedIndex, currentIndex) {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.header-time-history {
+  font-size: 1.4rem;
+  margin-top: 1.8rem;
+}
+.time-history {
+  margin-top: 0.6rem;
 }
 
 .header {

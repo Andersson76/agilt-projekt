@@ -12,3 +12,9 @@
   <ProgressCard />
   <Footer class="sm:static md:fixed lg:fixed" />
 </template>
+
+<style>
+  * {
+    font-family: Jua;
+  }
+</style>

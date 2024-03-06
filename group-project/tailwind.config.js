@@ -9,7 +9,8 @@ export default {
         "footerYellow": "#FDDE9A"
       },
       fontFamily: {
-        Jua: ["Jua", "Arial", "Helvetica", "sans-serif"]
+        Jua: ["Jua", "Arial", "Helvetica", "sans-serif"],
+        Madimi: ["Madimi One", "Arial", "Helvetica", "sans-serif"],
       },
     },
   },

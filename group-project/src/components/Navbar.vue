@@ -16,7 +16,7 @@
             class="relative box-content h-40 lg:h-56 overflow-x-auto xl:overflow-visible"
           >
             <div
-              class="absolute flex space-x-1 sm:px-1 lg:px-1 xl:relative xl:grid xl:grid-cols-8 xl:gap-x-1 xl:space-x-0 xl:px-0"
+              class="absolute flex space-x-1 sm:px-1 lg:px-1 xl:relative xl:grid xl:grid-cols-6 xl:gap-x-1 xl:space-x-0 xl:px-0"
             >
               <RouterLink
                 v-for="category in categories"
@@ -59,42 +59,37 @@
 <script setup>
   const categories = [
     {
-      name: 'Adventure',
+      name: 'Divisible Wizard',
       href: 'Adventure',
       imageSrc: 'category1.jpg'
     },
+    // {
+    //   name: 'Puzzle',
+    //   href: '#',
+    //   imageSrc: 'category11.jpg'
+    // },
     {
-      name: 'Puzzle',
-      href: '#',
-      imageSrc: 'category11.jpg'
-    },
-    {
-      name: 'Logic',
-      href: '#',
+      name: 'Quizzy Time',
+      href: 'BergsQuiz',
       imageSrc: 'category1111.jpg'
     },
-    {
-      name: 'Sport',
-      href: '#',
-      imageSrc: 'category111.jpg'
-    },
-    { name: 'Math',
+    { name: 'Math Master',
     href: 'Andersson',
     imageSrc: 'calc.jpg' },
     {
-      name: 'MathTreasure',
+      name: 'Treasure Math Hunt',
       href: 'MathTreasure',
       imageSrc: 'nvey the concept .png'
     },
     {
-      name: 'ProductBox',
+      name: 'Product Box',
       href: 'ProductBox',
       imageSrc: 'hem.png'
     },
     {
-      name: 'BergsQuiz',
-      href: 'BergsQuiz',
-      imageSrc: 'hem.png'
+      name: 'Why Levl',
+      href: 'why',
+      imageSrc: 'category111.jpg'
     }
   ]
 </script>

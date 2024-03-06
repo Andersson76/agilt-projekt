@@ -239,8 +239,8 @@ function disableOptions(selectedIndex, currentIndex) {
     </section>
 
     <section v-else class="app">
-      <h2>You have finished the quiz!</h2>
-      <p style="margin-bottom: 2rem;">Your score is {{ score }} / {{ questions.length }}</p>
+      <h2 style="font-size: 2rem;">You have finished the quiz!</h2>
+      <p style="margin-bottom: 2rem; font-size: 1.6rem;">Your score is {{ score }} / {{ questions.length }}</p>
       <button @click="resetQuiz" type="button" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50, buttonStyle">Try again</button>
       <h3 class="header-time-history">
         Time spent on the quiz, from oldest to latest attempt:
@@ -282,7 +282,8 @@ function disableOptions(selectedIndex, currentIndex) {
 
 .header {
   font-size: 2.5rem;
-  margin-bottom: 4rem;
+  margin-top: 6rem;
+  margin-bottom: 2rem;
 }
 
 .quiz {

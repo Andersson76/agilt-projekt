@@ -54,7 +54,7 @@
       User2: {
         ProgressData: {
           DivisibleWizard: {
-            name: 'Divisibled Wizard',
+            name: 'Divisible Wizard',
             level: 0,
             score: [0, 0],
             Maxscore: 500

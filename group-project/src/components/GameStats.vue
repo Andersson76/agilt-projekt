@@ -7,13 +7,15 @@ import Chart from 'chart.js/auto';
 
 const gameChartCanvas = ref(null);
 
+// Retrieve the active player
+const activePlayer = localStorage.getItem('activeplayer');
+
 onMounted(() => {
   // Retrieve gameStats from local storage
   const gameStats = JSON.parse(localStorage.getItem('gameStats'));
   console.log('gameStats:', gameStats); // Log the retrieved gameStats
 
-  // Retrieve the active player
-  const activePlayer = localStorage.getItem('activeplayer');
+
 
   // Extract data for the active player's progress
   const activePlayerProgress = gameStats.User1.ProgressData;
@@ -54,7 +56,7 @@ onMounted(() => {
             data: Object.values(highScores),
             backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)','rgba(255, 206, 186, 0.2)'],
             borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
+            borderWidth: 1,
           }
         ]
       },
@@ -86,3 +88,10 @@ onMounted(() => {
   </div>
   <Footer />
 </template>
+
+<style>
+#gameChartCanvas {
+  width: 400px; /* or 100% for full width */
+  height: 400px; /* Adjust as needed */
+}
+</style>

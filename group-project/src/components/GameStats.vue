@@ -16,7 +16,6 @@ onMounted(() => {
   console.log('gameStats:', gameStats); // Log the retrieved gameStats
 
 
-
   // Extract data for the active player's progress
   const activePlayerProgress = gameStats.User1.ProgressData;
   console.log('activePlayerProgress:', activePlayerProgress); // Log the retrieved activePlayerProgress

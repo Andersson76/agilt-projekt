@@ -1,4 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
+
+<!-- This footer is mainly using a tailwind asset that we modified slightly for our purposes. We didn't consider the footer to be very important for the protorype. The only important part was to set a vastly outdated date so that people know that the site has not been updated in many years. -->
+
+
 <template>
   <footer class="bg-footerYellow bottom-0 w-full">
     <div

@@ -1,9 +1,6 @@
 <script setup>
   import {
     ref,
-    // reactive,
-    //computed
-    // onMounted
   } from 'vue'
   import { RouterLink } from 'vue-router'
 
@@ -11,14 +8,15 @@
 
   const player = ref('')
 
-
-  player.value = JSON.parse(localStorage.getItem('activeplayer'))
+// Here the "activeplayer" is created in local storage unless it already exists. If it does, it is set to the value of the player ref.
 
   if (!JSON.parse(localStorage.getItem("activeplayer"))) {
     localStorage.setItem('activeplayer', JSON.stringify('User1'))
   } else {
     player.value = JSON.parse(localStorage.getItem('activeplayer'))
   }
+
+// Sets up the gameStats object and imports the data from local storage. If no data is found, it creates a new gameStats object and stores it in local storage.
 
   if (!JSON.parse(localStorage.getItem('gameStats'))) {
     gameStats = {
@@ -91,21 +89,7 @@
     }
   }
 
-  function importLocalStorage(stats) {
-    for (let player in stats) {
-      for (let game in stats[player].ProgressData) {
-        console.log(game)
-        console.log(stats[player].ProgressData[game])
-      }
-    }
-    console.log(stats)
-  }
-
-  // const percentage = computed(() => {
-  //   return (details.score[0] / details.Maxscore[0]) * 100
-  // })
-
-
+// This function resets the local storage and reloads the page. Used for testing purposes.
 
   function ResetLocalStorage() {
     localStorage.removeItem('gameStats')
@@ -126,6 +110,9 @@
   @click="ResetLocalStorage()"
 />
     <div>
+
+      <!-- Here i show for what player the stats are shown -->
+
       <p class="border border-black px-1">
         Current player: {{ player }}
     </p>
@@ -134,10 +121,14 @@
   <div class="flex bg-white justify-center">
     <div class="max-w-7xl px-6 lg:px-8">
       <div class="flex justify-center items-center mx-auto">
+
+        <!-- Without any values in "gameStats", there are no scores to list ;). There should probably be an element showing for when the data is loading in but we didnt have that issue using local storage since we all allowed for local storage to be used -->
         <div
           v-if="gameStats"
           class="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7 rounded-2xl text-center"
         >
+
+        <!-- The link below is the achivement card. its made dynamic to be able to list any number of games and their scores based on the object structure in the "gameStats" local storage object -->
           <RouterLink
             v-for="(details, game) in gameStats[player].ProgressData"
             :key="game"
@@ -157,6 +148,10 @@
                 &starf; {{ details.score[0] }} / {{ details.Maxscore }}
               </p>
               <div class="border-2 border-black">
+
+                <!-- This is the progress bar that uses score and Maxscore to shop % progression
+                This can propably be made with a little less code but at-least it works! -->
+
                 <p
                   v-if="details"
                   class="h-5 text-xl font-semibold leading-6 bg-green-500 p-0 m-0 progress-bar"
@@ -173,6 +168,9 @@
                   aria-valuemax="100"
                 />
               </div>
+
+              <!-- The element below shows the what level the player has acheived if the game uses the "level" keyword for values -->
+
               <p v-if="details.level > 0" class="text-xl font-semibold leading-6">
                 Level: {{ details.level }}
               </p>
